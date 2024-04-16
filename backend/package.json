@@ -28,7 +28,7 @@
     "openssl": "^2.0.0",
     "per-env": "^1.0.2",
     "pg": "^8.11.5",
-    "sequelize": "^6.37.2",
+    "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",
     "validator": "^13.11.0"
   },
