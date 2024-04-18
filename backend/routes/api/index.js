@@ -3,6 +3,7 @@ const { restoreUser } = require('../../utils/auth.js');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const spotRouter = require('./spots.js');
+const spotImageRouter = require('./spot-images.js');
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { requireAuth } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
@@ -11,6 +12,7 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
 router.use('/spots', spotRouter);
+router.use('/spot-images', spotImageRouter);
 
 // POST /api/test
 router.post('/test', (req, res) => {

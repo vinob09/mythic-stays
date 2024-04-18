@@ -1,9 +1,8 @@
 const express = require('express');
-const { Op } = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
-const { Spot } = require('../../db/models');
+const { Spot, SpotImage } = require('../../db/models');
 
 const router = express.Router();
 
@@ -42,6 +41,37 @@ const validateSpot = [
         .withMessage('Price per day must be a positive number'),
     handleValidationErrors
 ];
+
+
+// add image to Spot based on Spot id
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+    const userId = req.user.id;
+    const { spotId } = req.params;
+    const { url, preview } = req.body;
+
+    // spot not found
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+        return res.status(404).json({message: "Spot couldn't be found"});
+    }
+
+    // check for proper auth, spot must belong to curr user
+    if (userId !== spot.ownerId) {
+        return res.status(403).json({message: 'Forbidden'});
+    }
+
+    const newImage = await SpotImage.create({
+        spotId,
+        url,
+        preview
+    });
+
+    return res.status(200).json({
+        id: newImage.id,
+        url: newImage.url,
+        preview: newImage.preview
+    });
+});
 
 
 // edit a spot

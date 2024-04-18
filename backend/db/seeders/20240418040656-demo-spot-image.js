@@ -17,17 +17,17 @@ module.exports = {
         preview: true
       },
       {
-        spotId: 1,
+        spotId: 2,
         url: 'https://example-img2.com',
         preview: false
       },
       {
-        spotId: 1,
+        spotId: 3,
         url: 'https://example-img3.com',
         preview: true
       },
       {
-        spotId: 1,
+        spotId: 4,
         url: 'https://example-img4.com',
         preview: false
       },
