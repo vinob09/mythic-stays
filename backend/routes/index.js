@@ -9,6 +9,11 @@ router.use('/api', apiRouter);
 //   res.send('Hello World!');
 // });
 
+// GET /
+router.get('/', async (req, res, next) => {
+  return res.status(200).json({message: 'Refer to API documentation for backend routes'});
+});
+
 // Add a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {
   const csrfToken = req.csrfToken();
