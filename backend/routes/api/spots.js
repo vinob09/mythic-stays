@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
-const { Spot, SpotImage } = require('../../db/models');
+const { Spot, SpotImage, Review } = require('../../db/models');
 
 const router = express.Router();
 
@@ -42,6 +42,17 @@ const validateSpot = [
     handleValidationErrors
 ];
 
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Review text is required'),
+    check('stars')
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
+
 
 // add image to Spot based on Spot id
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
@@ -52,12 +63,12 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     // spot not found
     const spot = await Spot.findByPk(spotId);
     if (!spot) {
-        return res.status(404).json({message: "Spot couldn't be found"});
+        return res.status(404).json({ message: "Spot couldn't be found" });
     }
 
     // check for proper auth, spot must belong to curr user
     if (userId !== spot.ownerId) {
-        return res.status(403).json({message: 'Forbidden'});
+        return res.status(403).json({ message: 'Forbidden' });
     }
 
     const newImage = await SpotImage.create({
@@ -74,6 +85,35 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 });
 
 
+// add review to Spot based on Spot id
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+    const userId = req.user.id;
+    const spotId = parseInt(req.params.spotId);
+    const { review, stars } = req.body;
+
+    // spot not found
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+        return res.status(404).json({ message: "Spot couldn't be found" });
+    }
+
+    // check for existing review from curr user for this particular Spot
+    const existingReview = await Review.findOne({ where: { userId, spotId } });
+    if (existingReview) {
+        return res.status(500).json({ message: 'User already has a review for this spot' });
+    }
+
+    const newReview = await Review.create({
+        userId,
+        spotId,
+        review,
+        stars
+    });
+
+    return res.status(201).json(newReview);
+});
+
+
 // edit a spot
 router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     const userId = req.user.id;
@@ -83,12 +123,12 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res, next) => {
     // spot not found
     const spot = await Spot.findByPk(spotId);
     if (!spot) {
-        return res.status(404).json({message: "Spot couldn't be found"});
+        return res.status(404).json({ message: "Spot couldn't be found" });
     }
 
     // check for proper auth, spot must belong to curr user
     if (userId !== spot.ownerId) {
-        return res.status(403).json({message: 'Forbidden'});
+        return res.status(403).json({ message: 'Forbidden' });
     }
 
     // update spot if curr user authorized and spotId matches
@@ -116,18 +156,18 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     // spot not found
     const spot = await Spot.findByPk(spotId);
     if (!spot) {
-        return res.status(404).json({message: "Spot couldn't be found"});
+        return res.status(404).json({ message: "Spot couldn't be found" });
     }
 
     // check for proper auth, spot must belong to curr user
     if (userId !== spot.ownerId) {
-        return res.status(403).json({message: 'Forbidden'});
+        return res.status(403).json({ message: 'Forbidden' });
     }
 
     // delete spot if curr user authorized and spot matches
     await spot.destroy();
 
-    return res.status(200).json({message: 'Successfully deleted'});
+    return res.status(200).json({ message: 'Successfully deleted' });
 });
 
 

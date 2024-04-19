@@ -19,6 +19,11 @@ router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });
 });
 
+// GET /
+router.get('/', async (req, res, next) => {
+    return res.status(200).json({message: 'Refer to API documentation for backend routes'});
+});
+
 // // GET /api/restore-user
 // router.get('/restore-user', (req, res) => {
 //     return res.json(req.user);
