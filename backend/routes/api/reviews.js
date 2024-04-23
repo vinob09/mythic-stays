@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
-const { Review } = require('../../db/models');
+const { Review, ReviewImage } = require('../../db/models');
 
 const router = express.Router();
 
@@ -61,7 +61,42 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
 
     await review.destroy();
 
-    return res.status(200).json({message: 'Successfully deleted'});
+    return res.status(200).json({ message: 'Successfully deleted' });
+});
+
+
+// add image to Review based on Review id
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
+    const userID = req.user.id;
+    const { reviewId } = req.params;
+    const { url } = req.body;
+
+    // review not found
+    const review = await Review.findByPk(reviewId);
+    if (!review) {
+        return res.status(404).json({ message: "Review couldn't be found" });
+    }
+
+    // check for proper auth, review must belong to curr user
+    if (userID !== review.userId) {
+        return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    // check for max 10 images
+    const maxImages = await ReviewImage.findAll({ where: { reviewId } });
+    if (maxImages.length > 10) {
+        return res.status(403).json({message: 'Maximum number of images for this resource was reached'});
+    }
+
+    const newImage = await ReviewImage.create({
+        reviewId,
+        url
+    });
+
+    return res.status(200).json({
+        id: newImage.id,
+        url: newImage.url
+    });
 });
 
 
