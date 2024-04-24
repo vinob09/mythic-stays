@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
-const { Spot, SpotImage, Review } = require('../../db/models');
+const { Spot, SpotImage, Review, Booking } = require('../../db/models');
 
 const router = express.Router();
 
@@ -31,7 +31,7 @@ const validateSpot = [
         .withMessage('Longitude must be within -180 and 180'),
     check('name')
         .isLength({ max: 50 })
-        .withMessage('Name must be 50 characters or less'),
+        .withMessage('Name must be less than 50 characters'),
     check('description')
         .exists({ checkFalsy: true })
         .notEmpty()
@@ -111,6 +111,34 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
     });
 
     return res.status(201).json(newReview);
+});
+
+
+// add booking to Spot based on Spot id
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const userId = req.user.id;
+    const spotId = parseInt(req.params.spotId);
+    const { startDate, endDate } = req.body;
+
+    // spot not found
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+        return res.status(404).json({ message: "Spot couldn't be found" });
+    }
+
+    // check for proper auth, spot must NOT belong to curr user
+    if (userId === spot.ownerId) {
+        return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    const newBooking = await Booking.create({
+        spotId,
+        userId,
+        startDate,
+        endDate
+    });
+
+    return res.status(200).json(newBooking);
 });
 
 

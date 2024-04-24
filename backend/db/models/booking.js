@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class ReviewImage extends Model {
+  class Booking extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,27 +11,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ReviewImage.belongsTo(models.Review, { foreignKey: 'reviewId' });
+      Booking.belongsTo(models.Spot, { foreignKey: 'spotId' });
+      Booking.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
-  ReviewImage.init({
+  Booking.init({
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
     },
-    reviewId: {
-      type: DataTypes.INTEGER,
+    spotId: {
+      type: DataTypes.INTEGER
+    },
+    userId: {
+      type: DataTypes.INTEGER
+    },
+    startDate: {
+      type: DataTypes.STRING,
       allowNull: false
     },
-    url: {
+    endDate: {
       type: DataTypes.STRING,
-      unique: true
+      allowNull: false
     }
   }, {
     sequelize,
-    modelName: 'ReviewImage',
+    modelName: 'Booking',
   });
-  return ReviewImage;
+  return Booking;
 };
