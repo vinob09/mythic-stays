@@ -23,7 +23,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
     const { reviewId } = req.params;
     const { review, stars } = req.body;
 
-    // find review by reviewId and include Spot model
+    // find review by reviewId 
     const userReview = await Review.findByPk(reviewId);
     if (!userReview) {
         return res.status(404).json({ message: "Review couldn't be found" });
