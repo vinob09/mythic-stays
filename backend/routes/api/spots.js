@@ -256,6 +256,66 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 });
 
 
+// get all curr user spots
+router.get('/current', requireAuth, async (req, res, next) => {
+    const { user } = req;
+    if (user) {
+        const spots = await Spot.findAll({
+            where: {
+                ownerId: user.id
+            },
+            include: [
+                {
+                    model: Review,
+                    attributes: ['stars']
+                },
+                {
+                    model: SpotImage,
+                    attributes: ['url'],
+                    where: {
+                        preview: true
+                    },
+                    limit: 1
+                }
+            ]
+        });
+
+        // find avg rating of stars for each spot and include 1 preview image url
+        // format using toJSON
+        // check for cases where no preview is provided
+        const formattedSpots = spots.map(spot => {
+            const spotJSON = spot.toJSON();
+
+            // avg rating data
+            let totalStars = 0;
+            let reviewCount = 0;
+            if (spotJSON.Reviews && spotJSON.Reviews.length > 0) {
+                // iterate over each Review obj
+                for (let review of spotJSON.Reviews) {
+                    totalStars += review.stars;
+                    reviewCount++;
+                }
+                spotJSON.avgRating = totalStars / reviewCount;
+            }
+
+            // preview image data
+            if (spotJSON.SpotImages && spotJSON.SpotImages.length > 0) {
+                spotJSON.previewImage = spotJSON.SpotImages[0].url;
+            } else {
+                spotJSON.previewImage = null;
+            }
+
+            delete spotJSON.Reviews;
+            delete spotJSON.SpotImages;
+
+            return spotJSON;
+        });
+
+        return res.status(200).json({ Spots: formattedSpots });
+    }
+});
+
+
 // create a spot
 router.post('/', requireAuth, validateSpot, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
