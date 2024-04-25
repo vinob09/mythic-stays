@@ -277,4 +277,58 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
 });
 
 
+// get all spots
+router.get('/', async (req, res, next) => {
+    const spots = await Spot.findAll({
+        include: [
+            {
+                model: Review,
+                attributes: ['stars']
+            },
+            {
+                model: SpotImage,
+                attributes: ['url'],
+                where: {
+                    preview: true
+                },
+                limit: 1
+            }
+        ]
+    });
+
+    // find avg rating of stars for each spot and include 1 preview image url
+    // and format it using toJSON
+    // check for cases where no preview is provided
+    const formattedSpots = spots.map(spot => {
+        const spotJSON = spot.toJSON();
+
+        // avg rating data
+        let totalStars = 0;
+        let reviewCount = 0;
+        if (spotJSON.Reviews && spotJSON.Reviews.length > 0) {
+            // iterate over each Review obj
+            for (let review of spotJSON.Reviews) {
+                totalStars += review.stars;
+                reviewCount++;
+            }
+            spotJSON.avgRating = totalStars / reviewCount;
+        }
+
+        // preview image data
+        if (spotJSON.SpotImages && spotJSON.SpotImages.length > 0) {
+            spotJSON.previewImage = spotJSON.SpotImages[0].url;
+        } else {
+            spotJSON.previewImage = null;
+        }
+
+        delete spotJSON.Reviews;
+        delete spotJSON.SpotImages;
+
+        return spotJSON;
+    });
+
+    return res.status(200).json({ Spots: formattedSpots });
+});
+
+
 module.exports = router;
