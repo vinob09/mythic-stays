@@ -1,9 +1,70 @@
 const express = require('express');
 const { Op } = require('sequelize');
 const { requireAuth } = require('../../utils/auth');
-const { Booking, Spot } = require('../../db/models');
+const { Booking, Spot, SpotImage } = require('../../db/models');
 
 const router = express.Router();
+
+
+// get curr user bookings
+router.get('/current', requireAuth, async (req, res, next) => {
+    const { user } = req;
+
+    if (user) {
+        const bookings = await Booking.findAll({
+            where: {
+                userId: user.id
+            },
+            include: [
+                {
+                    model: Spot,
+                    attributes: {
+                        exclude: ['description', 'createdAt', 'updatedAt']
+                    },
+                    include: [
+                        {
+                            model: SpotImage,
+                            attributes: ['url'],
+                            where: {
+                                preview: true
+                            },
+                            limit: 1
+                        }
+                    ]
+                }
+            ]
+        });
+
+        const formattedBookings = bookings.map(booking => {
+            const bookingJSON = booking.toJSON();
+
+            // preview image data for spots
+            if (bookingJSON.Spot.SpotImages && bookingJSON.Spot.SpotImages.length > 0) {
+                bookingJSON.Spot.previewImage = bookingJSON.Spot.SpotImages[0].url;
+            } else {
+                bookingJSON.Spot.previewImage = null;
+            }
+            delete bookingJSON.Spot.SpotImages;
+
+            return {
+                id: bookingJSON.id,
+                spotId: bookingJSON.spotId,
+                Spot: {
+                    ...bookingJSON.Spot,
+                    previewImage: bookingJSON.Spot.previewImage
+                },
+                userId: bookingJSON.userId,
+                startDate: bookingJSON.startDate,
+                endDate: bookingJSON.endDate,
+                createdAt: bookingJSON.createdAt,
+                updatedAt: bookingJSON.updatedAt
+            }
+        });
+
+        return res.status(200).json({ Bookings: formattedBookings });
+    }
+});
+
 
 // edit a booking
 router.put('/:bookingId', requireAuth, async (req, res, next) => {
@@ -122,7 +183,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
 
     // error response for bookings that have started
     if (new Date(booking.startDate) < new Date()) {
-        return res.status(403).json({message: "Bookings that have been started can't be deleted"});
+        return res.status(403).json({ message: "Bookings that have been started can't be deleted" });
     }
 
     // delete booking if curr user authorized
