@@ -53,6 +53,40 @@ const validateReview = [
     handleValidationErrors
 ];
 
+const validateQueries = [
+    check('page')
+        .isInt({ min: 1 })
+        .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+        .isInt({ min: 1, max: 20 })
+        .withMessage('Size must be between 1 and 20'),
+    check('minLat')
+        .optional()
+        .isFloat({min: -90})
+        .withMessage('Minimum latitude is invalid'),
+    check('maxLat')
+        .optional()
+        .isFloat({max: 90})
+        .withMessage('Maximum latitude is invalid'),
+    check('minLng')
+        .optional()
+        .isFloat({min: -180})
+        .withMessage('Minimum longitude is invalid'),
+    check('maxLng')
+        .optional()
+        .isFloat({max: 180})
+        .withMessage('Maxiumum longitude is invalid'),
+    check('minPrice')
+        .optional()
+        .isFloat({min: 0})
+        .withMessage('Minimum price must be greater than or equal to 0'),
+    check('maxPrice')
+        .optional()
+        .isFloat({min: 0})
+        .withMessage('Maxiumum price must be greater than or equal to 0'),
+    handleValidationErrors
+];
+
 
 // add image to Spot based on Spot id
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
@@ -492,12 +526,34 @@ router.post('/', requireAuth, validateSpot, async (req, res, next) => {
 
 
 // get all spots
-router.get('/', async (req, res, next) => {
+router.get('/', validateQueries, async (req, res, next) => {
+    // query filters
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    page = parseInt(page) || 1;
+    size = parseInt(size) || 20;
+    minLat = parseFloat(minLat);
+    maxLat = parseFloat(maxLat);
+    minLng = parseFloat(minLng);
+    maxLng = parseFloat(maxLng);
+    minPrice = parseFloat(minPrice);
+    maxPrice = parseFloat(maxPrice);
+
+    let limit;
+    let offset;
+    if (page >= 1 && size <= 20) {
+        limit = size;
+        offset = size * (page - 1)
+    } else {
+        limit = 20
+    }
+
     const spots = await Spot.findAll({
         include: [
             {
                 model: Review,
-                attributes: ['stars']
+                attributes: ['stars'],
+                required: false
             },
             {
                 model: SpotImage,
@@ -505,9 +561,12 @@ router.get('/', async (req, res, next) => {
                 where: {
                     preview: true
                 },
-                limit: 1
+                limit: 1,
+                required: false
             }
-        ]
+        ],
+        limit,
+        offset
     });
 
     // find avg rating of stars for each spot and include 1 preview image url
@@ -538,10 +597,10 @@ router.get('/', async (req, res, next) => {
         delete spotJSON.Reviews;
         delete spotJSON.SpotImages;
 
-        return spotJSON;
+        return spotJSON
     });
 
-    return res.status(200).json({ Spots: formattedSpots });
+    return res.status(200).json({ Spots: formattedSpots, page, size });
 });
 
 
