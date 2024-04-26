@@ -2,7 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
-const { Spot, SpotImage, Review, Booking, User } = require('../../db/models');
+const { Spot, SpotImage, Review, Booking, User, ReviewImage } = require('../../db/models');
 
 const router = express.Router();
 
@@ -52,66 +52,6 @@ const validateReview = [
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
-
-
-// get all curr user spots
-router.get('/current', requireAuth, async (req, res, next) => {
-    const { user } = req;
-    if (user) {
-        const spots = await Spot.findAll({
-            where: {
-                ownerId: user.id
-            },
-            include: [
-                {
-                    model: Review,
-                    attributes: ['stars']
-                },
-                {
-                    model: SpotImage,
-                    attributes: ['url'],
-                    where: {
-                        preview: true
-                    },
-                    limit: 1
-                }
-            ]
-        });
-
-        // find avg rating of stars for each spot and include 1 preview image url
-        // format using toJSON
-        // check for cases where no preview is provided
-        const formattedSpots = spots.map(spot => {
-            const spotJSON = spot.toJSON();
-
-            // avg rating data
-            let totalStars = 0;
-            let reviewCount = 0;
-            if (spotJSON.Reviews && spotJSON.Reviews.length > 0) {
-                // iterate over each Review obj
-                for (let review of spotJSON.Reviews) {
-                    totalStars += review.stars;
-                    reviewCount++;
-                }
-                spotJSON.avgRating = totalStars / reviewCount;
-            }
-
-            // preview image data
-            if (spotJSON.SpotImages && spotJSON.SpotImages.length > 0) {
-                spotJSON.previewImage = spotJSON.SpotImages[0].url;
-            } else {
-                spotJSON.previewImage = null;
-            }
-
-            delete spotJSON.Reviews;
-            delete spotJSON.SpotImages;
-
-            return spotJSON;
-        });
-
-        return res.status(200).json({ Spots: formattedSpots });
-    }
-});
 
 
 // add image to Spot based on Spot id
@@ -256,6 +196,96 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     });
 
     return res.status(200).json(newBooking);
+});
+
+
+// get all spot reviews by id
+router.get('/:spotId/reviews', async (req, res, next) => {
+    const { spotId } = req.params;
+
+    // spot not found
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+        return res.status(404).json({ message: "Spot couldn't be found" });
+    }
+
+    const reviews = await Review.findAll({
+        where: {
+            spotId: spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: ReviewImage,
+                attributes: ['id', 'url']
+            }
+        ]
+    });
+
+    return res.status(200).json({Reviews: reviews});
+});
+
+
+// get all curr user spots
+router.get('/current', requireAuth, async (req, res, next) => {
+    const { user } = req;
+    if (user) {
+        const spots = await Spot.findAll({
+            where: {
+                ownerId: user.id
+            },
+            include: [
+                {
+                    model: Review,
+                    attributes: ['stars']
+                },
+                {
+                    model: SpotImage,
+                    attributes: ['url'],
+                    where: {
+                        preview: true
+                    },
+                    limit: 1
+                }
+            ]
+        });
+
+        // find avg rating of stars for each spot and include 1 preview image url
+        // format using toJSON
+        // check for cases where no preview is provided
+        const formattedSpots = spots.map(spot => {
+            const spotJSON = spot.toJSON();
+
+            // avg rating data
+            let totalStars = 0;
+            let reviewCount = 0;
+            if (spotJSON.Reviews && spotJSON.Reviews.length > 0) {
+                // iterate over each Review obj
+                for (let review of spotJSON.Reviews) {
+                    totalStars += review.stars;
+                    reviewCount++;
+                }
+                spotJSON.avgRating = totalStars / reviewCount;
+            }
+
+            // preview image data
+            if (spotJSON.SpotImages && spotJSON.SpotImages.length > 0) {
+                spotJSON.previewImage = spotJSON.SpotImages[0].url;
+            } else {
+                spotJSON.previewImage = null;
+            }
+
+            delete spotJSON.Reviews;
+            delete spotJSON.SpotImages;
+
+            return spotJSON;
+        });
+
+        return res.status(200).json({ Spots: formattedSpots });
+    }
 });
 
 
