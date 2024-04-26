@@ -27,6 +27,22 @@ module.exports = {
         reviewId: 4,
         url: 'https://example-img4.com'
       },
+      {
+        reviewId: 5,
+        url: 'https://example-img5.com'
+      },
+      {
+        reviewId: 6,
+        url: 'https://example-img6.com'
+      },
+      {
+        reviewId: 7,
+        url: 'https://example-img7.com'
+      },
+      {
+        reviewId: 8,
+        url: 'https://example-img8.com'
+      },
     ], { validate: true });
   },
 
