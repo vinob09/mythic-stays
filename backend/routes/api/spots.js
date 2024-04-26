@@ -225,7 +225,66 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         ]
     });
 
-    return res.status(200).json({Reviews: reviews});
+    return res.status(200).json({ Reviews: reviews });
+});
+
+
+// get all spot bookings based on id
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const userId = req.user.id;
+    const { spotId } = req.params;
+
+    // spot not found
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+        return res.status(404).json({ message: "Spot couldn't be found" });
+    }
+
+    // if request is made from owner of spot
+    if (userId === spot.ownerId) {
+        const bookings = await Booking.findAll({
+            where: {
+                spotId: spotId
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                }
+            ]
+        });
+
+        const formattedBookings = bookings.map(booking => {
+            const bookingJSON = booking.toJSON();
+
+            return {
+                User: {
+                    ...bookingJSON.User
+                },
+                id: bookingJSON.id,
+                spotId: bookingJSON.spotId,
+                userId: bookingJSON.userId,
+                startDate: bookingJSON.startDate,
+                endDate: bookingJSON.endDate,
+                createdAt: bookingJSON.createdAt,
+                updatedAt: bookingJSON.updatedAt
+            }
+        });
+
+        return res.status(200).json({ Bookings: formattedBookings });
+    }
+
+    // if request is not made from owner of spot
+    if (userId !== spot.ownerId) {
+        const bookings = await Booking.findAll({
+            where: {
+                spotId: spotId
+            },
+            attributes: ['spotId', 'startDate', 'endDate']
+        });
+
+        return res.status(200).json({ Bookings: bookings });
+    }
 });
 
 
