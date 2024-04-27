@@ -1,4 +1,5 @@
 const express = require('express');
+const { Op } = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
@@ -64,27 +65,27 @@ const validateQueries = [
         .withMessage('Size must be between 1 and 20'),
     check('minLat')
         .optional()
-        .isFloat({min: -90})
+        .isFloat({ min: -90 })
         .withMessage('Minimum latitude is invalid'),
     check('maxLat')
         .optional()
-        .isFloat({max: 90})
+        .isFloat({ max: 90 })
         .withMessage('Maximum latitude is invalid'),
     check('minLng')
         .optional()
-        .isFloat({min: -180})
+        .isFloat({ min: -180 })
         .withMessage('Minimum longitude is invalid'),
     check('maxLng')
         .optional()
-        .isFloat({max: 180})
+        .isFloat({ max: 180 })
         .withMessage('Maxiumum longitude is invalid'),
     check('minPrice')
         .optional()
-        .isFloat({min: 0})
+        .isFloat({ min: 0 })
         .withMessage('Minimum price must be greater than or equal to 0'),
     check('maxPrice')
         .optional()
-        .isFloat({min: 0})
+        .isFloat({ min: 0 })
         .withMessage('Maxiumum price must be greater than or equal to 0'),
     handleValidationErrors
 ];
@@ -541,6 +542,14 @@ router.get('/', validateQueries, async (req, res, next) => {
     minPrice = parseFloat(minPrice);
     maxPrice = parseFloat(maxPrice);
 
+    if (isNaN(minLat)) minLat = undefined;
+    if (isNaN(maxLat)) maxLat = undefined;
+    if (isNaN(minLng)) minLng = undefined;
+    if (isNaN(maxLng)) maxLng = undefined;
+    if (isNaN(minPrice)) minPrice = undefined;
+    if (isNaN(maxPrice)) maxPrice = undefined;
+
+    // pagination
     let limit;
     let offset;
     if (page >= 1 && size <= 20) {
@@ -550,7 +559,24 @@ router.get('/', validateQueries, async (req, res, next) => {
         limit = 20
     }
 
+    // return specified user queries
+    let where = {};
+    // lng
+    if (minLat !== undefined && maxLat !== undefined) where.lat = {[Op.between]: [minLat, maxLat]};
+    if (minLat !== undefined && maxLat === undefined) where.lat = {[Op.gte]: minLat};
+    if (minLat === undefined && maxLat !== undefined) where.lat = {[Op.lte]: maxLat};
+    // lng
+    if (minLng !== undefined && maxLng !== undefined) where.lng = {[Op.between]: [minLng, maxLng]};
+    if (minLng !== undefined && maxLng === undefined) where.lng = {[Op.gte]: minLng};
+    if (minLng === undefined && maxLng !== undefined) where.lng = {[Op.lte]: maxLng};
+    // price
+    if (minPrice !== undefined && maxPrice !== undefined) where.price = {[Op.between]: [minPrice, maxPrice]};
+    if (minPrice !== undefined && maxPrice === undefined) where.price = {[Op.gte]: minPrice};
+    if (minPrice === undefined && maxPrice !== undefined) where.price = {[Op.lte]: maxPrice};
+
+
     const spots = await Spot.findAll({
+        where,
         include: [
             {
                 model: Review,
