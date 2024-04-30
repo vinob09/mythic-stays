@@ -365,6 +365,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
                     reviewCount++;
                 }
                 spotJSON.avgRating = totalStars / reviewCount;
+            }   else {
+                spotJSON.avgRating = null;
             }
 
             // preview image data
@@ -423,6 +425,9 @@ router.get('/:spotId', async (req, res, next) => {
         }
         spot.numReviews = reviewCount;
         spot.avgRating = totalStars / reviewCount;
+    } else {
+        spot.numReviews = null;
+        spot.avgRating = null;
     }
     delete spot.Reviews;
 
@@ -613,6 +618,8 @@ router.get('/', validateQueries, async (req, res, next) => {
                 reviewCount++;
             }
             spotJSON.avgRating = totalStars / reviewCount;
+        } else {
+            spotJSON.avgRating = null;
         }
 
         // preview image data
