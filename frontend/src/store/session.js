@@ -39,6 +39,24 @@ export const restoreUser = () => async (dispatch) => {
     return response;
 }
 
+// thunk action creator for signing up new user
+export const signup = (user) => async (dispatch) => {
+    const { username, firstName, lastName, email, password } = user;
+    const response = await csrfFetch("/api/users", {
+        method: "POST",
+        body: JSON.stringify({
+            username,
+            firstName,
+            lastName,
+            email,
+            password
+        })
+    });
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return response;
+}
+
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
