@@ -30,7 +30,7 @@ Mythic Stays is a school project meant to mimic the functionalities of AirBnB. T
 * Express
 ### Database
 * Sequelize
-* PostgresSQL
+* PostgreSQL
 ### Other
 * HTML5
 * CSS
