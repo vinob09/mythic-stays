@@ -7,9 +7,9 @@ function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
     const sessionLinks = sessionUser ? (
-        <>
+        <li>
             <ProfileButton user={sessionUser} />
-        </>
+        </li>
     ) : (
         <>
             <li>
