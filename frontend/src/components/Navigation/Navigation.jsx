@@ -1,46 +1,27 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-// import OpenModalButton from '../OpenModalButton/OpenModalButton';
-// import LoginFormModal from '../LoginFormModal/LoginFormModal';
-// import SignupFormModal from '../signupFormModal';
 import './Navigation.css';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
 
-    // const sessionLinks = sessionUser ? (
-    //     <li>
-    //         <ProfileButton user={sessionUser} />
-    //     </li>
-    // ) : (
-    //     <>
-    //         <li>
-    //             <OpenModalButton
-    //                 buttonText="Log In"
-    //                 modalComponent={<LoginFormModal />}
-    //             />
-    //         </li>
-    //         <li>
-    //             <OpenModalButton
-    //                 buttonText="Sign Up"
-    //                 modalComponent={<SignupFormModal />}
-    //             />
-    //         </li>
-    //     </>
-    // );
-
     return (
-        <ul>
-            <li>
-                <NavLink to="/">Home</NavLink>
-            </li>
-            {isLoaded && (
+        <div className='nav-container'>
+            <div>
+                <Link to='/'><img src='MythicStays.png' alt='Mythic Stays Logo'></img></Link>
+            </div>
+            <div className='navlinks'>
                 <li>
-                    <ProfileButton user={sessionUser}/>
+                    <NavLink to="/">Home</NavLink>
                 </li>
-            )}
-        </ul>
+                {isLoaded && (
+                    <li>
+                        <ProfileButton user={sessionUser} />
+                    </li>
+                )}
+            </div>
+        </div>
     );
 }
 
