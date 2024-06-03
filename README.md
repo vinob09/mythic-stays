@@ -2,7 +2,7 @@
   Mythic Stays
 </h1>
 
-Welcome to Mythic Stays, a school project that is inspired by AirBnB's website! This web application allows users to browse, book and review mythical accommodations, and provides owners a suite of tools in managing their lodgings. As the name implies, Mythic Stays is not a real website and is meant for learning purposes only.
+Welcome to Mythic Stays, a school project that is inspired by the site of you know which! This web application allows users to browse, book and review mythical accommodations, and provides owners a suite of tools in managing their lodgings. As the name implies, Mythic Stays is not a real website and is meant for learning purposes only.
 
 ## Table of Contents
 * [Introduction](#introduction)
@@ -11,7 +11,7 @@ Welcome to Mythic Stays, a school project that is inspired by AirBnB's website! 
 * [Backend Details](#backend-details)
 
 ## Introduction
-Mythic Stays is a school project meant to mimic the functionalities of AirBnB. The project focuses on delivering a seamless user experience with a robust design that is intuitive and responsive. This project highlights full-stack development, utilizing modern web technologies and frameworks.
+Mythic Stays is a school project meant to mimic the functionalities of that shall not be named. The project focuses on delivering a seamless user experience with a robust design that is intuitive and responsive. This project highlights full-stack development, utilizing modern web technologies and frameworks.
 
 ## Features
 * User authentication and authorization
