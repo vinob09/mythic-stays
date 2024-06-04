@@ -1,16 +1,16 @@
 import { useModal } from "../../context/Modal";
 
-function OpenModalMenuItem({ modalComponent, itemText, onItemClick, onModalClose }) {
+function OpenModalMenuItem({ modalComponent, itemText, onButtonClick, onModalClose }) {
     const { setModalContent, setOnModalClose } = useModal();
 
     const onClick = () => {
         if (onModalClose) setOnModalClose(onModalClose);
         setModalContent(modalComponent);
-        if (typeof onItemClick === 'function') onItemClick();
+        if (typeof onButtonClick === 'function') onButtonClick();
     }
 
     return (
-        <li onClick={onClick}>{itemText}</li>
+        <div onClick={onClick} className="modal-menu-item">{itemText}</div>
     )
 }
 

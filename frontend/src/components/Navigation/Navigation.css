@@ -4,13 +4,60 @@
 
 .nav-container {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 3px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.navlinks {
+.logo {
+    height: 100px;
+}
+
+.profile-button-container {
+    position: relative;
+}
+
+.profile-button {
     display: flex;
-    list-style-type: none;
+    align-items: center;
+    border: 2px solid black;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+}
+
+.profile-button .icon {
+    margin: 0 5px;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+}
+
+.profile-details,
+.auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-menu-item {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background 0.2s;
+}
+
+.modal-menu-item:hover {
+    background: #f0f0f0;
 }
