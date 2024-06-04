@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import { Navigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
 
 function SignupFormModal() {
     const dispatch = useDispatch();
-    // const sessionUser = useSelector((state) => state.session.user);
+    const { closeModal } = useModal();
+
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -15,9 +15,12 @@ function SignupFormModal() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
-    const { closeModal } = useModal();
 
-    // if (sessionUser) return <Navigate to="/" replace={true} />;
+    const handleLogin = () => {
+        return email === "" || username === "" || firstName === "" ||
+        lastName === "" || password === "" || confirmPassword === "" ||
+        username.length < 4 || password.length < 6
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,7 +53,7 @@ function SignupFormModal() {
             <h1 className='signup-header'>Sign Up</h1>
             <form onSubmit={handleSubmit} className='signup-form'>
                 <label>
-                    Email
+                    Email { }
                     <input
                         type="text"
                         value={email}
@@ -60,7 +63,7 @@ function SignupFormModal() {
                 </label>
                 {errors.email && <p>{errors.email}</p>}
                 <label>
-                    Username
+                    Username { }
                     <input
                         type="text"
                         value={username}
@@ -70,7 +73,7 @@ function SignupFormModal() {
                 </label>
                 {errors.username && <p>{errors.username}</p>}
                 <label>
-                    First Name
+                    First Name { }
                     <input
                         type="text"
                         value={firstName}
@@ -80,7 +83,7 @@ function SignupFormModal() {
                 </label>
                 {errors.firstName && <p>{errors.firstName}</p>}
                 <label>
-                    Last Name
+                    Last Name { }
                     <input
                         type="text"
                         value={lastName}
@@ -90,7 +93,7 @@ function SignupFormModal() {
                 </label>
                 {errors.lastName && <p>{errors.lastName}</p>}
                 <label>
-                    Password
+                    Password { }
                     <input
                         type="password"
                         value={password}
@@ -100,7 +103,7 @@ function SignupFormModal() {
                 </label>
                 {errors.password && <p>{errors.password}</p>}
                 <label>
-                    Confirm Password
+                    Confirm Password { }
                     <input
                         type="password"
                         value={confirmPassword}
@@ -109,7 +112,7 @@ function SignupFormModal() {
                     />
                 </label>
                 {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-                <button type="submit">Sign Up</button>
+                <button type="submit" disabled={handleLogin()}>Sign Up</button>
             </form>
         </>
     );

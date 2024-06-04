@@ -58,6 +58,30 @@ module.exports = {
         name: 'SSV Normandy',
         description: 'Interstellar nights upon the Normandy',
         price: 1029.33
+      },
+      {
+        ownerId: 2,
+        address: '39 Hobbit Way',
+        city: 'Hobbiton',
+        state: 'The Shire',
+        country: 'Middle-earth',
+        lat: 19.3225449,
+        lng: -11.4348338,
+        name: `A Hobbit's Stay`,
+        description: 'Cozy, fireside nights in the Shire! Fireworks show included!',
+        price: 42.00
+      },
+      {
+        ownerId: 1,
+        address: '3 Corvo Bianco Estates',
+        city: 'Sangreal Valley',
+        state: 'Toussaint',
+        country: 'Sansretour Valley',
+        lat: 28.6525493,
+        lng: -120.4649397,
+        name: `Corvo Bianco Vineyards`,
+        description: `Enjoy our award-winning wine and the estate's luxuries in the heart of Toussaint.`,
+        price: 182.50
       }
     ], { validate: true });
   },
