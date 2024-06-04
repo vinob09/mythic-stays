@@ -1,3 +1,4 @@
+import { FaStar } from "react-icons/fa";
 import './SpotsCard.css';
 
 const SpotsCard = ({ spot }) => {
@@ -5,7 +6,7 @@ const SpotsCard = ({ spot }) => {
         <div>
             <h3>{spot.name}, {spot.previewImage}</h3>
             <p>{spot.city}, {spot.state}</p>
-            <p>{spot.avgRating}</p>
+            <p><FaStar /> {spot.avgRating}</p>
             <p>${spot.price} night</p>
         </div>
     )

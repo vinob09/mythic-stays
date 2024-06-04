@@ -15,10 +15,6 @@
     height: 100px;
 }
 
-.profile-button-container {
-    position: relative;
-}
-
 .profile-button {
     display: flex;
     align-items: center;

@@ -42,7 +42,7 @@ function ProfileButton({ user }) {
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
-        <div className='profile-button-container'>
+        <div>
             <button onClick={toggleMenu} className='profile-button'>
                 <FaBars className='icon' />
                 <FaUserCircle className='icon' />
@@ -50,9 +50,8 @@ function ProfileButton({ user }) {
             <div className={ulClassName} ref={ulRef}>
                 {user ? (
                     <div className='profile-details'>
-                        <span>Username: {user.username}</span>
-                        <span>User: {user.firstName} {user.lastName}</span>
-                        <span>Email: {user.email}</span>
+                        <span>Hello, {user.firstName}!</span>
+                        <span>{user.email}</span>
                         <button onClick={logout}>Log Out</button>
                     </div>
                 ) : (
