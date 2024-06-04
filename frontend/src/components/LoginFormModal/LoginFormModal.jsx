@@ -6,11 +6,11 @@ import './LoginForm.css';
 
 function LoginFormModal() {
     const dispatch = useDispatch();
+    const { closeModal } = useModal();
 
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
-    const { closeModal } = useModal();
 
     const handleLogin = () => {
         return credential.length < 4 || password.length < 6
@@ -24,7 +24,7 @@ function LoginFormModal() {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    setErrors({ credential: 'The provided credentials were invalid' })
+                    setErrors(data.errors)
                 }
             });
     };
