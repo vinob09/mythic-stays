@@ -1,17 +1,23 @@
+import { Link } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import './SpotsCard.css';
 
 const SpotsCard = ({ spot }) => {
     return (
-        <div className="spot-card">
-            <img src={spot.previewImage} alt={spot.name} className="spot-image" />
-            <div className="spot-details">
-                <h3>{spot.name}</h3>
-                <p>{spot.city}, {spot.state}</p>
-                <p className="spot-rating"><FaStar /> {spot.avgRating}</p>
-                <p className="spot-price">${spot.price} night</p>
+        <Link key={spot.id} to={`/spots/${spot.id}`}>
+            <div className="spot-card">
+                <img src={spot.previewImage} alt={spot.name} className="spot-image" />
+                <div className="spot-details">
+                    <div className="city-stars">
+                        <p>{spot.city}, {spot.state}</p>
+                        {spot.avgRating ? (
+                            <p className="spot-rating"><FaStar /> {spot.avgRating}</p>
+                        ) : ('New!')}
+                    </div>
+                    <p className="spot-price">${spot.price} night</p>
+                </div>
             </div>
-        </div>
+        </Link>
     )
 };
 
