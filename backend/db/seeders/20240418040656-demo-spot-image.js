@@ -13,92 +13,92 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: 'https://imgur.com/Nlsg6UU',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/kaer-morhen-1.png',
         preview: true
       },
       {
         spotId: 2,
-        url: 'https://imgur.com/zz8vYpX',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/rivendell-1.jpeg',
         preview: true
       },
       {
         spotId: 3,
-        url: 'https://imgur.com/yP2E3PR',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/baldurs-gate-1.jpeg',
         preview: true
       },
       {
         spotId: 4,
-        url: 'https://imgur.com/YxzWPH1',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/normandy-1.jpeg',
         preview: true
       },
       {
         spotId: 5,
-        url: 'https://imgur.com/vu9Pv2o',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-1.jpeg',
         preview: true
       },
       {
         spotId: 6,
-        url: 'https://imgur.com/RJv39vN',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-1.jpeg',
         preview: true
       },
       {
         spotId: 1,
-        url: 'https://imgur.com/0fTmYCl',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/kaer-morhen-2.jpeg',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://imgur.com/AhRYzB6',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/rivendell-2.jpeg',
         preview: false
       },
       {
         spotId: 3,
-        url: 'https://www.gematsu.com/wp-content/uploads/2023/06/Baldurs-Gate-III_2023_06-11-23_002-1024x576.jpg',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/baldurs-gate-2.jpg',
         preview: false
       },
       {
         spotId: 4,
-        url: 'https://imgur.com/BdLTh6r',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/normandy-2.jpeg',
         preview: false
       },
       {
         spotId: 5,
-        url: 'https://imgur.com/DXuTywE',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-2.jpeg',
         preview: false
       },
       {
         spotId: 6,
-        url: 'https://imgur.com/Np42bcy',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-2.jpeg',
         preview: false
       },
       {
         spotId: 1,
-        url: 'https://imgur.com/53Ur4MH',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/kaer-morhen-3.jpeg',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://imgur.com/9GYoPsA',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/rivendell-3.jpeg',
         preview: false
       },
       {
         spotId: 3,
-        url: 'https://www.gematsu.com/wp-content/uploads/2023/06/Baldurs-Gate-III_2023_06-11-23_003.jpg',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/baldurs-gate-3.jpg',
         preview: false
       },
       {
         spotId: 4,
-        url: 'https://imgur.com/2dyVT0K',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/normandy-3.jpeg',
         preview: false
       },
       {
         spotId: 5,
-        url: 'https://imgur.com/GKxyUHh',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-3.jpeg',
         preview: false
       },
       {
         spotId: 6,
-        url: 'https://imgur.com/qJxAHCi',
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-3.jpeg',
         preview: false
       },
     ], { validate: true });
@@ -108,7 +108,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1, 2, 3, 4] }
+      spotId: { [Op.in]: [1, 2, 3, 4, 5, 6] }
     }, {});
   }
 };
