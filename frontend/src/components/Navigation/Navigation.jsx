@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
@@ -8,19 +8,12 @@ function Navigation({ isLoaded }) {
 
     return (
         <div className='nav-container'>
-            <div>
-                <Link to='/'><img src='MythicStays.png' alt='Mythic Stays Logo'></img></Link>
-            </div>
-            <div className='navlinks'>
-                <li>
-                    <NavLink to="/">Home</NavLink>
-                </li>
+                <Link to='/'><img src='MythicStays.png' alt='Mythic Stays Logo' className='logo'></img></Link>
                 {isLoaded && (
-                    <li>
+                    <div>
                         <ProfileButton user={sessionUser} />
-                    </li>
+                    </div>
                 )}
-            </div>
         </div>
     );
 }

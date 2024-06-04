@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle, FaBars } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
@@ -42,22 +42,21 @@ function ProfileButton({ user }) {
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
-        <>
-            <button onClick={toggleMenu}>
-                <FaUserCircle />
+        <div className='profile-button-container'>
+            <button onClick={toggleMenu} className='profile-button'>
+                <FaBars className='icon' />
+                <FaUserCircle className='icon' />
             </button>
-            <ul className={ulClassName} ref={ulRef}>
+            <div className={ulClassName} ref={ulRef}>
                 {user ? (
-                    <>
-                        <li>Username: {user.username}</li>
-                        <li>Name: {user.firstName} {user.lastName}</li>
-                        <li>Email: {user.email}</li>
-                        <li>
-                            <button onClick={logout}>Log Out</button>
-                        </li>
-                    </>
+                    <div className='profile-details'>
+                        <span>Username: {user.username}</span>
+                        <span>User: {user.firstName} {user.lastName}</span>
+                        <span>Email: {user.email}</span>
+                        <button onClick={logout}>Log Out</button>
+                    </div>
                 ) : (
-                    <>
+                    <div className='auth-buttons'>
                         <OpenModalMenuItem
                             itemText="Log In"
                             onButtonClick={closeMenu}
@@ -68,10 +67,10 @@ function ProfileButton({ user }) {
                             onButtonClick={closeMenu}
                             modalComponent={<SignupFormModal />}
                         />
-                    </>
+                    </div>
                 )}
-            </ul>
-        </>
+            </div>
+        </div>
     );
 }
 
