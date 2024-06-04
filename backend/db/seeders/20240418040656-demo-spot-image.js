@@ -19,7 +19,7 @@ module.exports = {
       {
         spotId: 2,
         url: 'https://example-img2.com',
-        preview: false
+        preview: true
       },
       {
         spotId: 3,
@@ -29,6 +29,76 @@ module.exports = {
       {
         spotId: 4,
         url: 'https://example-img4.com',
+        preview: true
+      },
+      {
+        spotId: 5,
+        url: 'https://example-img5.com',
+        preview: true
+      },
+      {
+        spotId: 6,
+        url: 'https://example-img6.com',
+        preview: true
+      },
+      {
+        spotId: 1,
+        url: 'https://example-img7.com',
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: 'https://example-img8.com',
+        preview: false
+      },
+      {
+        spotId: 3,
+        url: 'https://example-img9.com',
+        preview: false
+      },
+      {
+        spotId: 4,
+        url: 'https://example-img10.com',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://example-img11.com',
+        preview: false
+      },
+      {
+        spotId: 6,
+        url: 'https://example-img12.com',
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: 'https://example-img13.com',
+        preview: false
+      },
+      {
+        spotId: 2,
+        url: 'https://example-img14.com',
+        preview: false
+      },
+      {
+        spotId: 3,
+        url: 'https://example-img15.com',
+        preview: false
+      },
+      {
+        spotId: 4,
+        url: 'https://example-img16.com',
+        preview: false
+      },
+      {
+        spotId: 5,
+        url: 'https://example-img17.com',
+        preview: false
+      },
+      {
+        spotId: 6,
+        url: 'https://example-img18.com',
         preview: false
       },
     ], { validate: true });
