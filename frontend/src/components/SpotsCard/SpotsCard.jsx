@@ -4,7 +4,7 @@ import './SpotsCard.css';
 
 const SpotsCard = ({ spot }) => {
     return (
-        <Link key={spot.id} to={`/spots/${spot.id}`}>
+        <Link key={spot.id} to={`/spots/${spot.id}`} title={spot.name}>
             <div className="spot-card">
                 <img src={spot.previewImage} alt={spot.name} className="spot-image" />
                 <div className="spot-details">
