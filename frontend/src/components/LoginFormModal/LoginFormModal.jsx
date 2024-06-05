@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
@@ -12,42 +12,33 @@ function LoginFormModal() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [hasSubmitted, setHasSubmitted] = useState();
 
-    const handleLogin = useCallback(() => {
-        const newErrors = {};
-        if (credential.length < 4 || password.length < 6) {
-            newErrors.credential = 'The provided credentials were invalid'
-        }
-        return newErrors;
-    }, [credential, password]);
-
+    // handle button disabling
     useEffect(() => {
-        const newErrors = handleLogin();
-        setIsButtonDisabled(Object.keys(newErrors).length > 0)
-    }, [credential, password, handleLogin]);
-
+        setIsButtonDisabled(credential.length < 4 || password.length < 6)
+    }, [credential, password]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        const newErrors = handleLogin();
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-        } else {
-            try {
-                await dispatch(sessionActions.login({ credential, password }));
-                closeModal();
-            } catch (res) {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data.errors)
-                } else {
-                    setErrors({credential: 'The provided credentials were invalid.'})
-                }
+        setHasSubmitted(true);
+        try {
+            await dispatch(sessionActions.login({ credential, password }));
+            closeModal();
+        } catch (res) {
+            const data = await res.json();
+            if (data && data.errors) {
+                setErrors(data.errors)
+                // setErrors({credential: 'The provided credentials were invalid.'})
+            }
+            else {
+                setErrors({ credential: 'The provided credentials were invalid.' })
             }
         }
     };
 
+    // handle demo user login
     const handleDemoUserLogin = async (e) => {
         e.preventDefault();
         try {
@@ -87,7 +78,7 @@ function LoginFormModal() {
                         required
                     />
                 </label>
-                {errors.credential && (<p className='login-modal-error-message'>{errors.credential}</p>)}
+                {hasSubmitted && errors.credential && (<p className='login-modal-error-message'>{errors.credential}</p>)}
                 <button type="submit" disabled={isButtonDisabled} className='login-modal-button'>Log In</button>
                 <a href='#' onClick={handleDemoUserLogin} className='login-modal-demo-link'>Log In as a Demo User</a>
             </form>
