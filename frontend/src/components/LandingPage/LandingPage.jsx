@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getSpots } from '../../store/landingpage';
+import { getSpots } from '../../store/spots';
 import SpotsCard from '../SpotsCard';
 import './LandingPage.css';
 
