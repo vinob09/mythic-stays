@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
@@ -15,11 +15,31 @@ function SignupFormModal() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-    const handleLogin = () => {
-        return email === "" || username === "" || firstName === "" ||
-        lastName === "" || password === "" || confirmPassword === "" ||
-        username.length < 4 || password.length < 6
+    useEffect(() => {
+        setIsButtonDisabled(
+            !email ||
+            !username ||
+            !firstName ||
+            !lastName ||
+            !password ||
+            !confirmPassword ||
+            username.length < 4 ||
+            password.length < 6
+        )
+    }, [email, username, firstName, lastName, password, confirmPassword]);
+
+    // handle errors to clear when input is updated
+    const handleInputs = (setter, field) => (e) => {
+        setter(e.target.value);
+        if (errors[field]) {
+            setErrors((prevErrors) => {
+                const newErrors = { ...prevErrors };
+                delete newErrors[field];
+                return newErrors;
+            })
+        }
     }
 
     const handleSubmit = (e) => {
@@ -35,13 +55,13 @@ function SignupFormModal() {
                     password
                 })
             )
-            .then(closeModal)
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data.errors);
-                }
-            });
+                .then(closeModal)
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) {
+                        setErrors(data.errors);
+                    }
+                });
         }
         return setErrors({
             confirmPassword: "Confirm Password field must be the same as the Password field"
@@ -50,69 +70,75 @@ function SignupFormModal() {
 
     return (
         <>
-            <h1 className='signup-header'>Sign Up</h1>
-            <form onSubmit={handleSubmit} className='signup-form'>
+            <h1 className='signup-modal-title'>Sign Up</h1>
+            <form onSubmit={handleSubmit} className='signup-modal-form'>
                 <label>
-                    Email { }
                     <input
                         type="text"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder='Email'
+                        className='signup-modal-input'
+                        onChange={handleInputs(setEmail, 'email')}
                         required
                     />
                 </label>
-                {errors.email && <p>{errors.email}</p>}
+                {errors.email && <p className='signup-modal-error-message'>{errors.email}</p>}
                 <label>
-                    Username { }
                     <input
                         type="text"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder='Username'
+                        className='signup-modal-input'
+                        onChange={handleInputs(setUsername, 'username')}
                         required
                     />
                 </label>
-                {errors.username && <p>{errors.username}</p>}
+                {errors.username && <p className='signup-modal-error-message'>{errors.username}</p>}
                 <label>
-                    First Name { }
                     <input
                         type="text"
                         value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder='First Name'
+                        className='signup-modal-input'
+                        onChange={handleInputs(setFirstName, 'firstName')}
                         required
                     />
                 </label>
-                {errors.firstName && <p>{errors.firstName}</p>}
+                {errors.firstName && <p className='signup-modal-error-message'>{errors.firstName}</p>}
                 <label>
-                    Last Name { }
                     <input
                         type="text"
                         value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder='Last Name'
+                        className='signup-modal-input'
+                        onChange={handleInputs(setLastName, 'lastName')}
                         required
                     />
                 </label>
-                {errors.lastName && <p>{errors.lastName}</p>}
+                {errors.lastName && <p className='signup-modal-error-message'>{errors.lastName}</p>}
                 <label>
-                    Password { }
                     <input
                         type="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Password'
+                        className='signup-modal-input'
+                        onChange={handleInputs(setPassword, 'password')}
                         required
                     />
                 </label>
-                {errors.password && <p>{errors.password}</p>}
+                {errors.password && <p className='signup-modal-error-message'>{errors.password}</p>}
                 <label>
-                    Confirm Password { }
                     <input
                         type="password"
                         value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder='Confirm Password'
+                        className='signup-modal-input'
+                        onChange={handleInputs(setConfirmPassword, 'confirmPassword')}
                         required
                     />
                 </label>
-                {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-                <button type="submit" disabled={handleLogin()}>Sign Up</button>
+                {errors.confirmPassword && <p className='signup-modal-error-message'>{errors.confirmPassword}</p>}
+                <button type="submit" disabled={isButtonDisabled}>Sign Up</button>
             </form>
         </>
     );

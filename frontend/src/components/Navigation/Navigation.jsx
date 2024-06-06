@@ -8,14 +8,15 @@ function Navigation({ isLoaded }) {
 
     return (
         <div className='nav-container'>
-                <Link to='/'><img src='MythicStays.png' alt='Mythic Stays Logo' className='logo'></img></Link>
-                {isLoaded && (
-                    <div>
-                        <ProfileButton user={sessionUser} />
-                    </div>
-                )}
+            <Link to='/'><img src='/MythicStays.png' alt='Mythic Stays Logo' className='logo'></img></Link>
+            {isLoaded && (
+                <div>
+                    {sessionUser ? (<Link to='/spots/new'>Create a New Spot</Link>) : ("")}
+                    <ProfileButton user={sessionUser} />
+                </div>
+            )}
         </div>
-    );
+    )
 }
 
 export default Navigation;

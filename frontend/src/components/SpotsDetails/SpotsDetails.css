@@ -1,0 +1,47 @@
+.details-image-container {
+    display: flex;
+}
+
+.details-image-main {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+}
+
+.details-image-secondary {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.details-container {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 3px rgb(0, 0, 0);
+    padding-bottom: 50px;
+}
+
+.details-price-reviews {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid 2px black;
+    border-radius: 20px;
+    padding: 10px 20px 50px 20px;
+}
+
+.details-spot-rating {
+    display: flex;
+}
+
+.reviews-comments-container {
+    display: flex;
+    padding-top: 10px;
+}
+
+.reviews-stars-comments {
+    display: flex;
+    font-weight: bolder;
+    font-size: 20px;
+    align-items: center;
+}
