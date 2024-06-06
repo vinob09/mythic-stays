@@ -11,6 +11,15 @@
     position: relative;
 }
 
+.nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.create-spot-link {
+    margin-right: 20px;
+}
+
 .logo {
     height: 100px;
 }
