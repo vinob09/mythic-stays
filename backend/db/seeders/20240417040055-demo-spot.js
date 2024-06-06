@@ -20,7 +20,7 @@ module.exports = {
         lat: 37.7645358,
         lng: -122.4730327,
         name: 'Kaer Morhen Fortress',
-        description: 'A private room overlooking the witcher training grounds',
+        description: 'A private room overlooking the witcher training grounds. Meals to be provided in the dining hall, and a full suite of alchemy stations should you wish to enhance or update any mutations you may have. Here you will access to the castle grounds and lands beyond. Just a word of warning though, there has been talk of a Royal Wyvern flying about so proceed at your own risk.',
         price: 98.99
       },
       {
@@ -32,7 +32,7 @@ module.exports = {
         lat: 17.7685328,
         lng: -13.4462327,
         name: 'Rivendell Villas',
-        description: 'Peaceful and secluded villa in Rivendell, tucked deep in the mountains',
+        description: 'Peaceful and secluded villa in Rivendell, tucked deep in the mountains. All villas come with meals and daily, fresh lembas bread. We have a viewing platform in which you can see the Shards of Narsil, still sharp as ever. Explore our gardens, enjoy the serenity of the waterfall.',
         price: 182
       },
       {
@@ -44,7 +44,7 @@ module.exports = {
         lat: -2.2645252,
         lng: 12.6430347,
         name: 'The Elf Song Tavern and Inn',
-        description: "Breathtaking suite down, down, down by the river in Baldur's Gate",
+        description: "Breathtaking suite down, down, down by the river in Baldur's Gate! We have been operating the inn since 1456 and have hosted many different guests from all across the lands. There are nightly events down at the bar should you wish to partake in them.",
         price: 42.50
       },
       {
@@ -56,7 +56,7 @@ module.exports = {
         lat: 29.2245456,
         lng: -111.4845358,
         name: 'SSV Normandy',
-        description: 'Interstellar nights upon the Normandy',
+        description: 'Interstellar nights upon the Normandy. The Captains Quarters is fully stocked and provides the best view of the stars. Meals will be provided free of charge down in the galley. Please be mindful of the other guests that may be on board!',
         price: 1029.33
       },
       {
@@ -68,7 +68,7 @@ module.exports = {
         lat: 19.3225449,
         lng: -11.4348338,
         name: `A Hobbit's Stay`,
-        description: 'Cozy, fireside nights in the Shire! Fireworks show included!',
+        description: 'Cozy, fireside nights in the Shire! Fireworks show included! This hobbit home is perfect for those that want to get away from any visitors or distant relations you may have. Tea and various cakes are baked fresh daily and provided to the home.',
         price: 42.00
       },
       {
@@ -80,8 +80,32 @@ module.exports = {
         lat: 28.6525493,
         lng: -120.4649397,
         name: `Corvo Bianco Vineyards`,
-        description: `Enjoy our award-winning wine and the estate's luxuries in the heart of Toussaint.`,
+        description: `Enjoy our award-winning wine and the estate's luxuries in the heart of Toussaint. This vineyard includes a majordomo that will assist you throughout your stay. We have spacious stables to accomodate your horse should you arrive on horseback.`,
         price: 182.50
+      },
+      {
+        ownerId: 3,
+        address: '2456 Last Light',
+        city: 'Last Light Valley',
+        state: 'Shadow-Cursed Lands',
+        country: 'Western Heartlands',
+        lat: 27.6325193,
+        lng: -20.4649397,
+        name: `The Last Light Inn`,
+        description: `Upon banishment of the Shadow that cursed these lands, the Last Light Inn was remodeled and shines ever so brightly amidst the ruins. The inn provides all meals, drinks are extra. Bask in Selune's light and glory!`,
+        price: 80.50
+      },
+      {
+        ownerId: 4,
+        address: '2 Anderson Way',
+        city: 'Silversun Strip',
+        state: 'Citadel',
+        country: 'The Widow System',
+        lat: 32.6546493,
+        lng: -10.4449397,
+        name: `Tiberius Towers Apartment`,
+        description: `This grand apartment suite is equipped with a large seating area, perfect for celebrating your victories, along with a sauna and fully functional gym should you feel the need to let off some steam. Kitchen is fully-stocked and available for your use.`,
+        price: 250
       }
     ], { validate: true });
   },
