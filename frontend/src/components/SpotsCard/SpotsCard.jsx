@@ -11,7 +11,7 @@ const SpotsCard = ({ spot }) => {
                     <div className="city-stars">
                         <p>{spot.city}, {spot.state}</p>
                         {spot.avgRating ? (
-                            <p className="spot-rating"><FaStar /> {spot.avgRating}</p>
+                            <p className="spot-rating"><FaStar /> {(spot.avgRating).toFixed(1)}</p>
                         ) : ('New!')}
                     </div>
                     <p className="spot-price">${spot.price} night</p>

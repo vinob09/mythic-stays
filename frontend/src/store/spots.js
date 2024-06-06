@@ -1,7 +1,9 @@
 import { csrfFetch } from './csrf';
+import { createSelector } from 'reselect';
 
 const LOAD_SPOTS = 'spots/loadSpots';
 const SPOT_DETAILS = 'spots/spotDetails';
+const LOAD_REVIEWS = 'spots/loadReviews';
 
 const loadSpots = (payload) => {
     return {
@@ -17,6 +19,14 @@ const spotDetails = (spotId) => {
     }
 };
 
+const loadReviews = (spotId) => {
+    return {
+        type: LOAD_REVIEWS,
+        payload: spotId
+    }
+};
+
+// load all spots
 export const getSpots = () => async (dispatch) => {
     const response = await csrfFetch('/api/spots');
 
@@ -26,6 +36,7 @@ export const getSpots = () => async (dispatch) => {
     }
 };
 
+// get spot details by id
 export const getSpotDetails = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}`);
 
@@ -35,21 +46,40 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
     }
 };
 
+// get all reviews for spot by id
+export const fetchReviews = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
 
-const initialState = {};
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadReviews(data));
+    }
+}
+
+
+const initialState = {
+    loadSpots: {},
+    currSpot: null,
+    reviews: {}
+};
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
-            const newState = {};
+            const newState = { ...state, loadSpots: {} };
             action.payload.Spots.forEach(spot => {
-                newState[spot.id] = spot;
+                newState.loadSpots[spot.id] = spot;
             });
             return newState;
         }
         case SPOT_DETAILS: {
-            const currSpot = action.payload;
-            const newState = {...state, currSpot};
+            return { ...state, currSpot: action.payload };
+        }
+        case LOAD_REVIEWS: {
+            const newState = { ...state, reviews: {} };
+            action.payload.Reviews.forEach(review => {
+                newState.reviews[review.id] = review;
+            });
             return newState;
         }
         default:
@@ -58,3 +88,11 @@ const spotsReducer = (state = initialState, action) => {
 };
 
 export default spotsReducer;
+
+// selectors for memoized data
+const selectReviews = state => state.spots.reviews;
+
+export const selectReviewsArray = createSelector(
+    [selectReviews],
+    (reviews) => Object.values(reviews)
+);
