@@ -31,15 +31,17 @@ const SpotsDetails = () => {
     const isOwner = sessionUser && spot && sessionUser.id === spot.Owner.id;
     // check review length
     const hasReviews = reviews.length > 0;
+    // sort reviews to show newest to oldest
+    const sortedReviews = [...reviews].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return isLoaded ? (
-        <div>
+        <div className='details-page-container'>
             <h2>{spot.name}</h2>
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
             <div className='details-image-container'>
                 <img src={spot.SpotImages[0].url} className='details-image-main' />
-                <div>
-                    {spot.SpotImages.slice(1).map(image => (
+                <div className='details-secondary-images'>
+                    {spot.SpotImages.slice(1, 5).map(image => (
                         <img key={image.id} src={image.url} className='details-image-secondary' />
                     ))}
                 </div>
@@ -50,20 +52,22 @@ const SpotsDetails = () => {
                     <p>{spot.description}</p>
                 </div>
                 <div className='details-price-reviews'>
-                    <h2>${spot.price} night</h2>
-                    <div>
-                        {spot.avgStarRating ? (
-                            <p className="details-spot-rating"><FaStar /> {(spot.avgStarRating).toFixed(1)}</p>
-                        ) : (<FaStar />)}
+                    <div className='details-price-reviews-top'>
+                        <h2>${spot.price} night</h2>
+                        <div className="details-spot-rating">
+                            {spot.avgStarRating ? (
+                                <p><FaStar /> {(spot.avgStarRating).toFixed(1)}</p>
+                            ) : (<FaStar />)}
+                            {spot.numReviews ? (
+                                <p><LuDot />{spot.numReviews} {
+                                    spot.numReviews > 1 ? ('reviews') : ('review')
+                                }</p>
+                            ) : (
+                                <p>New!</p>
+                            )}
+                        </div>
                     </div>
-                    {spot.numReviews ? (
-                        <p className="details-spot-rating"><LuDot />{spot.numReviews} {
-                            spot.numReviews > 1 ? ('reviews') : ('review')
-                        }</p>
-                    ) : (
-                        <p className="details-spot-rating">New!</p>
-                    )}
-                    <button onClick={handleReserveButton}>Reserve</button>
+                    <button onClick={handleReserveButton} className='details-spot-button'>Reserve</button>
                 </div>
             </div>
             <div>
@@ -86,7 +90,7 @@ const SpotsDetails = () => {
                         <p>Be the first to post a review!</p>
                     ) : (
                         <div>
-                            {reviews.map(review => {
+                            {sortedReviews.map(review => {
                                 // convert to month/year format
                                 const reviewDate = new Date(review.createdAt);
                                 const options = { year: 'numeric', month: 'long' };
