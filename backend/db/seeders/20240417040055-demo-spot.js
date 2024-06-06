@@ -20,7 +20,7 @@ module.exports = {
         lat: 37.7645358,
         lng: -122.4730327,
         name: 'Kaer Morhen Fortress',
-        description: 'A private room overlooking the witcher training grounds. Meals to be provided in the dining hall, and a full suite of alchemy stations should you wish to enhance or update any mutations you may have. Here you will access to the castle grounds and lands beyond. Just a word of warning though, there has been talk of a Royal Wyvern flying about so proceed at your own risk.',
+        description: 'A private room overlooking the witcher training grounds. Full suite of alchemy stations. Access to the castle grounds and lands beyond. Just a word of warning though, there has been talk of a Royal Wyvern flying about so proceed at your own risk.',
         price: 98.99
       },
       {
@@ -32,7 +32,7 @@ module.exports = {
         lat: 17.7685328,
         lng: -13.4462327,
         name: 'Rivendell Villas',
-        description: 'Peaceful and secluded villa in Rivendell, tucked deep in the mountains. All villas come with meals and daily, fresh lembas bread. We have a viewing platform in which you can see the Shards of Narsil, still sharp as ever. Explore our gardens, enjoy the serenity of the waterfall.',
+        description: 'Peaceful and secluded villa in Rivendell, tucked deep in the mountains. All villas come with meals and daily, fresh lembas bread. Explore our gardens, enjoy the serenity of the waterfall.',
         price: 182
       },
       {
