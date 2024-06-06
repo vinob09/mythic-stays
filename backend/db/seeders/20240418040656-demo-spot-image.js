@@ -13,152 +13,152 @@ module.exports = {
     await SpotImage.bulkCreate([
       {
         spotId: 1,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/kaer-morhen-1.jpg',
+        url: '../public/assets/kaer-morhen-1.jpg',
         preview: true
       },
       {
         spotId: 2,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/rivendell-1.png',
+        url: '../public/assets/rivendell-1.png',
         preview: true
       },
       {
         spotId: 3,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/baldurs-gate-1.jpg',
+        url: '../public/assets/baldurs-gate-1.jpg',
         preview: true
       },
       {
         spotId: 4,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/normandy-1.jpg',
+        url: '../public/assets/normandy-1.jpg',
         preview: true
       },
       {
         spotId: 5,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-1.jpg',
+        url: '../public/assets/hobbit-1.jpg',
         preview: true
       },
       {
         spotId: 6,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-1.png',
+        url: '../public/assets/corvo-bianco-1.png',
         preview: true
       },
       {
         spotId: 1,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/kaer-morhen-2.jpg',
+        url: '../public/assets/kaer-morhen-2.jpg',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/rivendell-2.jpg',
+        url: '../public/assets/rivendell-2.jpg',
         preview: false
       },
       {
         spotId: 3,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/baldurs-gate-2.jpg',
+        url: '../public/assets/baldurs-gate-2.jpg',
         preview: false
       },
       {
         spotId: 4,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/normandy-2.jpg',
+        url: '../public/assets/normandy-2.jpg',
         preview: false
       },
       {
         spotId: 5,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-2.jpg',
+        url: '../public/assets/hobbit-2.jpg',
         preview: false
       },
       {
         spotId: 6,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-2.png',
+        url: '../public/assets/corvo-bianco-2.png',
         preview: false
       },
       {
         spotId: 1,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/kaer-morhen-3.jpg',
+        url: '../public/assets/kaer-morhen-3.jpg',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/rivendell-3.jpg',
+        url: '../public/assets/rivendell-3.jpg',
         preview: false
       },
       {
         spotId: 3,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/baldurs-gate-3.jpg',
+        url: '../public/assets/baldurs-gate-3.jpg',
         preview: false
       },
       {
         spotId: 4,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/normandy-3.jpg',
+        url: '../public/assets/normandy-3.jpg',
         preview: false
       },
       {
         spotId: 5,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-3.jpg',
+        url: '../public/assets/hobbit-3.jpg',
         preview: false
       },
       {
         spotId: 6,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-3.jpg',
+        url: '../public/assets/corvo-bianco-3.jpg',
         preview: false
       },
       {
         spotId: 1,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/kaer-morhen-4.jpg',
+        url: '../public/assets/kaer-morhen-4.jpg',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/rivendell-4.png',
+        url: '../public/assets/rivendell-4.png',
         preview: false
       },
       {
         spotId: 3,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/baldurs-gate-4.jpg',
+        url: '../public/assets/baldurs-gate-4.jpg',
         preview: false
       },
       {
         spotId: 4,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/normandy-4.jpg',
+        url: '../public/assets/normandy-4.jpg',
         preview: false
       },
       {
         spotId: 5,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-4.jpg',
+        url: '../public/assets/hobbit-4.jpg',
         preview: false
       },
       {
         spotId: 6,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-4.jpg',
+        url: '../public/assets/corvo-bianco-4.jpg',
         preview: false
       },
       {
         spotId: 1,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/kaer-morhen-5.png',
+        url: '../public/assets/kaer-morhen-5.png',
         preview: false
       },
       {
         spotId: 2,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/rivendell-5.jpeg',
+        url: '../public/assets/rivendell-5.jpeg',
         preview: false
       },
       {
         spotId: 3,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/baldurs-gate-5.jpg',
+        url: '../public/assets/baldurs-gate-5.jpg',
         preview: false
       },
       {
         spotId: 4,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/normandy-5.jpg',
+        url: '../public/assets/normandy-5.jpg',
         preview: false
       },
       {
         spotId: 5,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-5.jpg',
+        url: '../public/assets/hobbit-5.jpg',
         preview: false
       },
       {
         spotId: 6,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-5.png',
+        url: '../public/assets/corvo-bianco-5.png',
         preview: false
       }
     ], { validate: true });
