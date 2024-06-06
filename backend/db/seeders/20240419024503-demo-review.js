@@ -56,7 +56,7 @@ module.exports = {
       {
         userId: 1,
         spotId: 3,
-        review: 'Strange noises kept us up all night! Will not be back. Would give a negative star if I could. I would have helped the adventuring party with their investigation but they insisted on looking into every single barrel and crate around and rummaging in their inventory, it became tiresome to watch!',
+        review: 'Strange noises kept us up all night! I would have helped the adventuring party with their investigation but they insisted on looking into every single barrel and crate around and rummaging in their inventory, it became tiresome to watch!',
         stars: 1,
         createdAt: '2019-07-15 21:00:18.610 +00:00'
       },
