@@ -3,18 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaStar } from 'react-icons/fa';
 import { LuDot } from "react-icons/lu";
 import { useEffect, useState } from 'react';
+import { useModal } from '../../context/Modal';
 import { fetchReviews, getSpotDetails, selectReviewsArray } from '../../store/spots';
+import ReviewFormModal from '../ReviewFormModal/ReviewFormModal';
 import './SpotsDetails.css';
 
 const SpotsDetails = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const { setModalContent } = useModal();
 
     const spot = useSelector(state => state.spots.currSpot);
     const sessionUser = useSelector(state => state.session.user);
     const reviews = useSelector(selectReviewsArray);
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [userHasReviewed, setUserHasReviewed] = useState(false);
 
     useEffect(() => {
         dispatch(getSpotDetails(spotId))
@@ -23,11 +27,19 @@ const SpotsDetails = () => {
             .then(() => setIsLoaded(true));
     }, [dispatch, spotId]);
 
+    // checking for session user's reviews for the spot, if any
+    useEffect(() => {
+        if (sessionUser && reviews) {
+            setUserHasReviewed(reviews.some(review => review.userId === sessionUser.id))
+        }
+    }, [sessionUser, reviews]);
+
+    // handle window alert to return
     const handleReserveButton = () => {
         return alert('Feature Coming Soon...')
     }
 
-    // check session user is not owner
+    // check if session user is owner of spot
     const isOwner = sessionUser && spot && sessionUser.id === spot.Owner.id;
     // check review length
     const hasReviews = reviews.length > 0;
@@ -43,10 +55,10 @@ const SpotsDetails = () => {
             <h2>{spot.name}</h2>
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
             <div className='details-image-container'>
-                <img src={spot.SpotImages[0].url} className='details-image-main' onError={handleImageError}/>
+                <img src={spot.SpotImages[0].url} className='details-image-main' onError={handleImageError} />
                 <div className='details-secondary-images'>
                     {spot.SpotImages.slice(1, 5).map(image => (
-                        <img key={image.id} src={image.url} className='details-image-secondary' onError={handleImageError}/>
+                        <img key={image.id} src={image.url} className='details-image-secondary' onError={handleImageError} />
                     ))}
                 </div>
             </div>
@@ -90,6 +102,11 @@ const SpotsDetails = () => {
                     </div>
                 </div>
                 <div>
+                    {sessionUser && !isOwner && !userHasReviewed && (
+                        <button onClick={() => setModalContent(<ReviewFormModal spotId={spotId} />)}>
+                            Post Your Review
+                        </button>
+                    )}
                     {sessionUser && !isOwner && !hasReviews ? (
                         <p>Be the first to post a review!</p>
                     ) : (
@@ -101,7 +118,7 @@ const SpotsDetails = () => {
                                 const formattedDate = reviewDate.toLocaleDateString(undefined, options);
                                 return (
                                     <div key={review.id}>
-                                        <p>{review.User.firstName}</p>
+                                        <p>{review.User ? review.User.firstName : (sessionUser && sessionUser.firstName)}</p>
                                         <p>{formattedDate}</p>
                                         <p>{review.review}</p>
                                     </div>

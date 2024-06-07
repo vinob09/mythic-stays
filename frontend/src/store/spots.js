@@ -6,6 +6,7 @@ const SPOT_DETAILS = 'spots/spotDetails';
 const LOAD_REVIEWS = 'spots/loadReviews';
 const CREATE_SPOT = 'spots/createSpot';
 const CREATE_IMAGE = 'spots/createImage';
+const CREATE_REVIEW = 'spots/createReview';
 
 const loadSpots = (payload) => {
     return {
@@ -44,6 +45,16 @@ const createImage = (spotId, image) => {
         }
     }
 };
+
+const createReview = (spotId, review) => {
+    return {
+        type: CREATE_REVIEW,
+        payload: {
+            spotId,
+            review
+        }
+    }
+}
 
 // load all spots
 export const getSpots = () => async (dispatch) => {
@@ -103,6 +114,28 @@ export const formNewImage = (spotId, payload) => async (dispatch) => {
     }
 };
 
+// create a review
+export const formNewReview = (spotId, payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(createReview(spotId, data));
+        return data;
+    }
+}
+
+
+// helper func for calculating new star average
+const calculateNewAvgStarRating = (reviews) => {
+    const totalStars = Object.values(reviews).reduce((acc, review) => acc + review.stars, 0);
+    const numReviews = Object.values(reviews).length;
+    return totalStars / numReviews;
+};
+
 
 const initialState = {
     loadSpots: {},
@@ -128,6 +161,14 @@ const spotsReducer = (state = initialState, action) => {
             action.payload.Reviews.forEach(review => {
                 newState.reviews[review.id] = review;
             });
+            return newState;
+        }
+        case CREATE_REVIEW: {
+            const { review } = action.payload;
+            const newState = { ...state, reviews: { ...state.reviews } };
+            newState.reviews[review.id] = review;
+            newState.currSpot.avgStarRating = calculateNewAvgStarRating(newState.reviews);
+            newState.currSpot.numReviews += 1;
             return newState;
         }
         case CREATE_SPOT: {
