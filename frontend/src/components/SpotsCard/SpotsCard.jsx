@@ -3,6 +3,8 @@ import { FaStar } from "react-icons/fa";
 import './SpotsCard.css';
 
 const SpotsCard = ({ spot }) => {
+    const price = spot.price ? parseFloat(spot.price) : 0;
+
     return (
         <Link key={spot.id} to={`/spots/${spot.id}`} title={spot.name}>
             <div className="spot-card">
@@ -14,7 +16,7 @@ const SpotsCard = ({ spot }) => {
                             <p className="spot-rating"><FaStar /> {(spot.avgRating).toFixed(1)}</p>
                         ) : ('New!')}
                     </div>
-                    <p className="spot-price">${(spot.price).toFixed(2)} night</p>
+                    <p className="spot-price">${price.toFixed(2)} night</p>
                 </div>
             </div>
         </Link>

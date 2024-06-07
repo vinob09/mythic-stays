@@ -89,7 +89,17 @@ const CreateSpot = () => {
             const firstErrorField = Object.keys(hasErrors)[0];
             inputRefs.current[firstErrorField].scrollIntoView({ behavior: 'smooth' });
         } else {
-            const spotData = { country, address, city, state, lat, lng, description, name, price };
+            const spotData = {
+                country,
+                address,
+                city,
+                state,
+                lat: parseFloat(lat),
+                lng: parseFloat(lng),
+                description,
+                name,
+                price: parseFloat(price)
+            };
             try {
                 // dispatching create new spot action
                 const newSpot = await dispatch(formNewSpot(spotData));
@@ -167,7 +177,7 @@ const CreateSpot = () => {
                     <div className='create-form-input-row'>
                         <label className='create-form-label'> Latitude
                             <input
-                                type='text'
+                                type='number'
                                 value={lat}
                                 className='create-form-input'
                                 placeholder='Latitude'
@@ -178,7 +188,7 @@ const CreateSpot = () => {
                         <span className='create-form-input-comma'>,</span>
                         <label className='create-form-label'> Longitude
                             <input
-                                type='text'
+                                type='number'
                                 value={lng}
                                 className='create-form-input'
                                 placeholder='Longitude'
@@ -237,7 +247,7 @@ const CreateSpot = () => {
                     <p className='create-form-caption'>Submit a link to at least one photo to publish your spot.</p>
                     <label className='create-form-label'>
                         <input
-                            type='text'
+                            type='url'
                             value={previewImage}
                             onChange={handleInputs(setPreviewImage, 'previewImage')}
                             className='create-form-input'
@@ -246,28 +256,28 @@ const CreateSpot = () => {
                         />
                         {errors.previewImage && <p className='create-spot-error'>{errors.previewImage}</p>}
                         <input
-                            type='text'
+                            type='url'
                             value={imageOne}
                             onChange={(e) => setImageOne(e.target.value)}
                             className='create-form-input'
                             placeholder='Image URL'
                         />
                         <input
-                            type='text'
+                            type='url'
                             value={imageTwo}
                             onChange={(e) => setImageTwo(e.target.value)}
                             className='create-form-input'
                             placeholder='Image URL'
                         />
                         <input
-                            type='text'
+                            type='url'
                             value={imageThree}
                             onChange={(e) => setImageThree(e.target.value)}
                             className='create-form-input'
                             placeholder='Image URL'
                         />
                         <input
-                            type='text'
+                            type='url'
                             value={imageFour}
                             onChange={(e) => setImageFour(e.target.value)}
                             className='create-form-input'

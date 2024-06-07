@@ -57,7 +57,7 @@ const SpotsDetails = () => {
                 </div>
                 <div className='details-price-reviews'>
                     <div className='details-price-reviews-top'>
-                        <h2>${spot.price} night</h2>
+                        <h2>${parseFloat(spot.price).toFixed(2)} night</h2>
                         <div className="details-spot-rating">
                             {spot.avgStarRating ? (
                                 <p><FaStar /> {(spot.avgStarRating).toFixed(1)}</p>
