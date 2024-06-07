@@ -33,16 +33,20 @@ const SpotsDetails = () => {
     const hasReviews = reviews.length > 0;
     // sort reviews to show newest to oldest
     const sortedReviews = [...reviews].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    // handle broken image links
+    const handleImageError = (e) => {
+        e.target.src = '/sorry-image-not-available.jpg';
+    }
 
     return isLoaded ? (
         <div className='details-page-container'>
             <h2>{spot.name}</h2>
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
             <div className='details-image-container'>
-                <img src={spot.SpotImages[0].url} className='details-image-main' />
+                <img src={spot.SpotImages[0].url} className='details-image-main' onError={handleImageError}/>
                 <div className='details-secondary-images'>
                     {spot.SpotImages.slice(1, 5).map(image => (
-                        <img key={image.id} src={image.url} className='details-image-secondary' />
+                        <img key={image.id} src={image.url} className='details-image-secondary' onError={handleImageError}/>
                     ))}
                 </div>
             </div>

@@ -1,0 +1,81 @@
+.create-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.spot-form {
+    width: 80%;
+    max-width: 600px;
+}
+
+.form-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
+}
+
+.create-form-title {
+    text-align: center;
+}
+
+.section-heading {
+    margin-bottom: 10px;
+}
+
+.create-form-caption {
+    margin-bottom: 10px;
+}
+
+.create-form-label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.create-form-label-price {
+    display: flex;
+    align-items: center;
+}
+
+.create-form-input,
+.create-form-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: rgb(180, 210, 234);
+}
+
+.create-form-button {
+    width: 25%;
+    padding: 10px;
+    background-color: red;
+    color: white;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px black;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+}
+
+.create-form-button:hover {
+    background-color: darkred;
+}
+
+.create-spot-error {
+    color: red;
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+
+.create-form-input-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.create-form-input-comma {
+    margin: 0 10px;
+}

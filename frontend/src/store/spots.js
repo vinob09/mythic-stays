@@ -4,6 +4,8 @@ import { createSelector } from 'reselect';
 const LOAD_SPOTS = 'spots/loadSpots';
 const SPOT_DETAILS = 'spots/spotDetails';
 const LOAD_REVIEWS = 'spots/loadReviews';
+const CREATE_SPOT = 'spots/createSpot';
+const CREATE_IMAGE = 'spots/createImage';
 
 const loadSpots = (payload) => {
     return {
@@ -23,6 +25,23 @@ const loadReviews = (spotId) => {
     return {
         type: LOAD_REVIEWS,
         payload: spotId
+    }
+};
+
+const createSpot = (spot) => {
+    return {
+        type: CREATE_SPOT,
+        payload: spot
+    }
+};
+
+const createImage = (spotId, image) => {
+    return {
+        type: CREATE_IMAGE,
+        payload: {
+            spotId,
+            image
+        }
     }
 };
 
@@ -54,13 +73,42 @@ export const fetchReviews = (spotId) => async (dispatch) => {
         const data = await response.json();
         dispatch(loadReviews(data));
     }
-}
+};
+
+// create a spot
+export const formNewSpot = (payload) => async (dispatch) => {
+    const response = await csrfFetch('/api/spots', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(createSpot(data));
+        return data;
+    }
+};
+
+// create an image
+export const formNewImage = (spotId, payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(createImage(spotId, data));
+        return data;
+    }
+};
 
 
 const initialState = {
     loadSpots: {},
     currSpot: null,
-    reviews: {}
+    reviews: {},
+    images: {}
 };
 
 const spotsReducer = (state = initialState, action) => {
@@ -80,6 +128,20 @@ const spotsReducer = (state = initialState, action) => {
             action.payload.Reviews.forEach(review => {
                 newState.reviews[review.id] = review;
             });
+            return newState;
+        }
+        case CREATE_SPOT: {
+            const newState = { ...state, loadSpots: { ...state.loadSpots } };
+            newState.loadSpots[action.payload.id] = action.payload;
+            return newState;
+        }
+        case CREATE_IMAGE: {
+            const { spotId, image } = action.payload;
+            const newState = { ...state, images: { ...state.images } };
+            if (!newState.images[spotId]) {
+                newState.images[spotId] = [];
+            }
+            newState.images[spotId].push(image);
             return newState;
         }
         default:
