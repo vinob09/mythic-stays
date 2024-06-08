@@ -7,6 +7,7 @@ const LOAD_REVIEWS = 'spots/loadReviews';
 const CREATE_SPOT = 'spots/createSpot';
 const CREATE_IMAGE = 'spots/createImage';
 const CREATE_REVIEW = 'spots/createReview';
+const USER_SPOTS = 'spots/userSpots';
 
 const loadSpots = (payload) => {
     return {
@@ -54,7 +55,14 @@ const createReview = (spotId, review) => {
             review
         }
     }
-}
+};
+
+const userSpots = (payload) => {
+    return {
+        type: USER_SPOTS,
+        payload
+    }
+};
 
 // load all spots
 export const getSpots = () => async (dispatch) => {
@@ -126,7 +134,17 @@ export const formNewReview = (spotId, payload) => async (dispatch) => {
         dispatch(createReview(spotId, data));
         return data;
     }
-}
+};
+
+// get curr user spots
+export const getCurrUserSpots = () => async (dispatch) => {
+    const response = await csrfFetch('/api/spots/current');
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(userSpots(data));
+    }
+};
 
 
 // helper func for calculating new star average
@@ -141,7 +159,8 @@ const initialState = {
     loadSpots: {},
     currSpot: null,
     reviews: {},
-    images: {}
+    images: {},
+    currUser: {}
 };
 
 const spotsReducer = (state = initialState, action) => {
@@ -183,6 +202,13 @@ const spotsReducer = (state = initialState, action) => {
                 newState.images[spotId] = [];
             }
             newState.images[spotId].push(image);
+            return newState;
+        }
+        case USER_SPOTS: {
+            const newState = { ...state, currUser: {} };
+            action.payload.Spots.forEach(spot => {
+                newState.currUser[spot.id] = spot;
+            });
             return newState;
         }
         default:
