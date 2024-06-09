@@ -8,6 +8,7 @@ const CREATE_SPOT = 'spots/createSpot';
 const CREATE_IMAGE = 'spots/createImage';
 const CREATE_REVIEW = 'spots/createReview';
 const USER_SPOTS = 'spots/userSpots';
+const UPDATE_SPOTS = 'spots/updateSpots';
 
 const loadSpots = (payload) => {
     return {
@@ -64,6 +65,13 @@ const userSpots = (payload) => {
     }
 };
 
+const updateSpots = (spot) => {
+    return {
+        type: UPDATE_SPOTS,
+        spot
+    }
+};
+
 // load all spots
 export const getSpots = () => async (dispatch) => {
     const response = await csrfFetch('/api/spots');
@@ -81,6 +89,7 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(spotDetails(data));
+        return data;
     }
 };
 
@@ -143,6 +152,20 @@ export const getCurrUserSpots = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(userSpots(data));
+    }
+};
+
+// update curr user spots
+export const updateCurrUserSpots = (spotId, payload) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
+        body: JSON.stringify(payload)
+    })
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(updateSpots(data));
+        return data;
     }
 };
 
@@ -210,6 +233,9 @@ const spotsReducer = (state = initialState, action) => {
                 newState.currUser[spot.id] = spot;
             });
             return newState;
+        }
+        case UPDATE_SPOTS: {
+            return {...state, [action.spot.id]: action.spot};
         }
         default:
             return state;

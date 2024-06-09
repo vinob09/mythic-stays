@@ -1,51 +1,51 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { BsCurrencyDollar } from "react-icons/bs";
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { formNewSpot, formNewImage } from '../../store/spots';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { formNewSpot, formNewImage, updateCurrUserSpots } from '../../store/spots';
 import './CreateSpot.css';
 
-const CreateSpot = () => {
-    const [country, setCountry] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [lat, setLat] = useState("");
-    const [lng, setLng] = useState("");
-    const [description, setDescription] = useState("");
-    const [name, setName] = useState("");
-    const [price, setPrice] = useState("");
-    const [previewImage, setPreviewImage] = useState("");
+const CreateSpot = ({ isUpdate = false }) => {
+    const { spotId } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const inputRefs = useRef({});
+
+    const spot = useSelector((state) => state.spots[spotId]);
+    // fix memoized warning
+    const memoizedSpot = useMemo(() => spot || {}, [spot]);
+
+    const [country, setCountry] = useState(memoizedSpot.country || "");
+    const [address, setAddress] = useState(memoizedSpot.address || "");
+    const [city, setCity] = useState(memoizedSpot.city || "");
+    const [state, setState] = useState(memoizedSpot.state || "");
+    const [lat, setLat] = useState(memoizedSpot.lat || "");
+    const [lng, setLng] = useState(memoizedSpot.lng || "");
+    const [description, setDescription] = useState(memoizedSpot.description || "");
+    const [name, setName] = useState(memoizedSpot.name || "");
+    const [price, setPrice] = useState(memoizedSpot.price || "");
+    const [previewImage, setPreviewImage] = useState(memoizedSpot.previewImage || "");
     const [imageOne, setImageOne] = useState("");
     const [imageTwo, setImageTwo] = useState("");
     const [imageThree, setImageThree] = useState("");
     const [imageFour, setImageFour] = useState("");
     const [errors, setErrors] = useState({});
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const inputRefs = useRef({});
 
-    // reset
     useEffect(() => {
-        return () => {
-            setCountry("");
-            setAddress("");
-            setCity("");
-            setState("");
-            setLat("");
-            setLng("");
-            setDescription("");
-            setName("");
-            setPrice("");
-            setPreviewImage("");
-            setImageOne("");
-            setImageTwo("");
-            setImageThree("");
-            setImageFour("");
-            setErrors({});
+        if (isUpdate && memoizedSpot) {
+            setCountry(memoizedSpot.country || "");
+            setAddress(memoizedSpot.address || "");
+            setCity(memoizedSpot.city || "");
+            setState(memoizedSpot.state || "");
+            setLat(memoizedSpot.lat || "");
+            setLng(memoizedSpot.lng || "");
+            setDescription(memoizedSpot.description || "");
+            setName(memoizedSpot.name || "");
+            setPrice(memoizedSpot.price || "");
+            setPreviewImage(memoizedSpot.previewImage || "");
         }
-    }, []);
+    }, [isUpdate, memoizedSpot]);
 
 
     // error validations
@@ -65,7 +65,7 @@ const CreateSpot = () => {
         if (name.length > 50) newErrors.name = 'Name must be less than 50 characters';
         if (!price) newErrors.price = 'Price per night is required';
         if (price < 0) newErrors.price = 'Price per day must be a positive number';
-        if (!previewImage) newErrors.previewImage = 'A preview image URL is required';
+        if (!isUpdate && !previewImage) newErrors.previewImage = 'A preview image URL is required';
         return newErrors;
     }
 
@@ -101,16 +101,24 @@ const CreateSpot = () => {
                 price: parseFloat(price)
             };
             try {
-                // dispatching create new spot action
-                const newSpot = await dispatch(formNewSpot(spotData));
-                const spotId = newSpot.id;
-                // dispatching image upload creation
-                // use Promise.all()
-                const imageUrls = [previewImage, imageOne, imageTwo, imageThree, imageFour].filter(url => url);
-                const imagePromises = imageUrls.map(url => dispatch(formNewImage(spotId, { url })));
-                await Promise.all(imagePromises);
-                // navigate to new spot details after promise images are all loaded
-                navigate(`/spots/${newSpot.id}`);
+                // check form if updating or creating
+                if (isUpdate) {
+                    // dispatching update spot action
+                    const updatedSpot = await dispatch(updateCurrUserSpots(spotId, spotData));
+                    // navigate to spots details with updates
+                    navigate(`/spots/${updatedSpot.id}`);
+                } else {
+                    // dispatching create new spot action
+                    const newSpot = await dispatch(formNewSpot(spotData));
+                    const spotId = newSpot.id;
+                    // dispatching image upload creation
+                    // use Promise.all()
+                    const imageUrls = [previewImage, imageOne, imageTwo, imageThree, imageFour].filter(url => url);
+                    const imagePromises = imageUrls.map(url => dispatch(formNewImage(spotId, { url })));
+                    await Promise.all(imagePromises);
+                    // navigate to new spot details after promise images are all loaded
+                    navigate(`/spots/${newSpot.id}`);
+                }
             } catch (res) {
                 const data = await res.json();
                 if (data && data.errors) {
@@ -122,7 +130,10 @@ const CreateSpot = () => {
 
     return (
         <div className='create-form-container'>
-            <h1 className='create-form-title'>Create a New Spot</h1>
+            <h1 className='create-form-title'>{isUpdate ?
+                'Update Your Spot' :
+                'Create a New Spot'}
+            </h1>
             <form className='spot-form' onSubmit={handleSubmit}>
                 <section className='form-section'>
                     <h2 className='section-heading'>Where&apos;s your place located?</h2>

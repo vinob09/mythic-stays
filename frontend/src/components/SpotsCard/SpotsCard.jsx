@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import './SpotsCard.css';
 
 const SpotsCard = ({ spot, manage }) => {
+    const { spotId } = useParams();
     const price = spot.price ? parseFloat(spot.price) : 0;
+
+    // handle updating curr user spot
+    const handleUpdate = () => {
+        <Link to={`/spots/${spotId}/edit`}></Link>
+    }
 
     return (
         <div>
@@ -23,7 +29,7 @@ const SpotsCard = ({ spot, manage }) => {
             </Link>
             {manage && (
                 <div>
-                    <button>Update</button>
+                    <button onClick={handleUpdate}>Update</button>
                     <button>Delete</button>
                 </div>
             )}
