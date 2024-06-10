@@ -9,6 +9,7 @@ const CREATE_IMAGE = 'spots/createImage';
 const CREATE_REVIEW = 'spots/createReview';
 const USER_SPOTS = 'spots/userSpots';
 const UPDATE_SPOTS = 'spots/updateSpots';
+const DELETE_SPOT = 'spots/deleteSpot';
 
 const loadSpots = (payload) => {
     return {
@@ -71,6 +72,13 @@ const updateSpots = (spot) => {
         spot
     }
 };
+
+const deleteSpot = (spot) => {
+    return {
+        type: DELETE_SPOT,
+        spot
+    }
+}
 
 // load all spots
 export const getSpots = () => async (dispatch) => {
@@ -169,6 +177,18 @@ export const updateCurrUserSpots = (spotId, payload) => async (dispatch) => {
     }
 };
 
+// delete a spot
+export const deleteASpot = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        dispatch(deleteSpot(spotId))
+        dispatch(userSpots(spotId))
+    }
+};
+
 
 // helper func for calculating new star average
 const calculateNewAvgStarRating = (reviews) => {
@@ -236,6 +256,12 @@ const spotsReducer = (state = initialState, action) => {
         }
         case UPDATE_SPOTS: {
             return {...state, [action.spot.id]: action.spot};
+        }
+        case DELETE_SPOT: {
+            const spotId = action.payload;
+            const newState = {...state.loadSpots};
+            delete newState[spotId];
+            return {...state, loadSpots: newState}
         }
         default:
             return state;

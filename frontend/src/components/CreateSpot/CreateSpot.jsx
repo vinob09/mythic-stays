@@ -1,52 +1,33 @@
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { BsCurrencyDollar } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { formNewSpot, formNewImage, updateCurrUserSpots } from '../../store/spots';
+import { formNewSpot, formNewImage, updateCurrUserSpots, getSpotDetails } from '../../store/spots';
 import './CreateSpot.css';
 
-const CreateSpot = ({ isUpdate = false }) => {
+const CreateSpot = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const inputRefs = useRef({});
 
     const spot = useSelector((state) => state.spots[spotId]);
-    // fix memoized warning
-    const memoizedSpot = useMemo(() => spot || {}, [spot]);
 
-    const [country, setCountry] = useState(memoizedSpot.country || "");
-    const [address, setAddress] = useState(memoizedSpot.address || "");
-    const [city, setCity] = useState(memoizedSpot.city || "");
-    const [state, setState] = useState(memoizedSpot.state || "");
-    const [lat, setLat] = useState(memoizedSpot.lat || "");
-    const [lng, setLng] = useState(memoizedSpot.lng || "");
-    const [description, setDescription] = useState(memoizedSpot.description || "");
-    const [name, setName] = useState(memoizedSpot.name || "");
-    const [price, setPrice] = useState(memoizedSpot.price || "");
-    const [previewImage, setPreviewImage] = useState(memoizedSpot.previewImage || "");
+    const [country, setCountry] = useState("");
+    const [address, setAddress] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [lat, setLat] = useState("");
+    const [lng, setLng] = useState("");
+    const [description, setDescription] = useState("");
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [previewImage, setPreviewImage] = useState("");
     const [imageOne, setImageOne] = useState("");
     const [imageTwo, setImageTwo] = useState("");
     const [imageThree, setImageThree] = useState("");
     const [imageFour, setImageFour] = useState("");
     const [errors, setErrors] = useState({});
-
-
-    useEffect(() => {
-        if (isUpdate && memoizedSpot) {
-            setCountry(memoizedSpot.country || "");
-            setAddress(memoizedSpot.address || "");
-            setCity(memoizedSpot.city || "");
-            setState(memoizedSpot.state || "");
-            setLat(memoizedSpot.lat || "");
-            setLng(memoizedSpot.lng || "");
-            setDescription(memoizedSpot.description || "");
-            setName(memoizedSpot.name || "");
-            setPrice(memoizedSpot.price || "");
-            setPreviewImage(memoizedSpot.previewImage || "");
-        }
-    }, [isUpdate, memoizedSpot]);
-
 
     // error validations
     const validationErrors = () => {
@@ -65,9 +46,30 @@ const CreateSpot = ({ isUpdate = false }) => {
         if (name.length > 50) newErrors.name = 'Name must be less than 50 characters';
         if (!price) newErrors.price = 'Price per night is required';
         if (price < 0) newErrors.price = 'Price per day must be a positive number';
-        if (!isUpdate && !previewImage) newErrors.previewImage = 'A preview image URL is required';
+        if (!spotId && !previewImage) newErrors.previewImage = 'A preview image URL is required';
         return newErrors;
     }
+
+    useEffect(() => {
+        if (spotId) {
+            dispatch(getSpotDetails(spotId));
+        }
+    }, [dispatch, spotId]);
+
+    useEffect(() => {
+        if (spot) {
+            setCountry(spot.country);
+            setAddress(spot.address);
+            setCity(spot.city);
+            setState(spot.state);
+            setLat(spot.lat);
+            setLng(spot.lng);
+            setDescription(spot.description);
+            setName(spot.name);
+            setPrice(spot.price);
+            setPreviewImage(spot.previewImage);
+        }
+    }, [spot]);
 
     // handle errors to clear when input is updated
     const handleInputs = (setter, field) => (e) => {
@@ -102,7 +104,7 @@ const CreateSpot = ({ isUpdate = false }) => {
             };
             try {
                 // check form if updating or creating
-                if (isUpdate) {
+                if (spotId) {
                     // dispatching update spot action
                     const updatedSpot = await dispatch(updateCurrUserSpots(spotId, spotData));
                     // navigate to spots details with updates
@@ -130,7 +132,7 @@ const CreateSpot = ({ isUpdate = false }) => {
 
     return (
         <div className='create-form-container'>
-            <h1 className='create-form-title'>{isUpdate ?
+            <h1 className='create-form-title'>{spotId ?
                 'Update Your Spot' :
                 'Create a New Spot'}
             </h1>
@@ -253,50 +255,56 @@ const CreateSpot = ({ isUpdate = false }) => {
                     </label>
                     {errors.price && <p className='create-spot-error'>{errors.price}</p>}
                 </section>
-                <section className='form-section'>
-                    <h2 className='section-heading'>Liven up your spot with photos</h2>
-                    <p className='create-form-caption'>Submit a link to at least one photo to publish your spot.</p>
-                    <label className='create-form-label'>
-                        <input
-                            type='url'
-                            value={previewImage}
-                            onChange={handleInputs(setPreviewImage, 'previewImage')}
-                            className='create-form-input'
-                            placeholder='Preview Image URL'
-                            ref={(el) => inputRefs.current.previewImage = el}
-                        />
-                        {errors.previewImage && <p className='create-spot-error'>{errors.previewImage}</p>}
-                        <input
-                            type='url'
-                            value={imageOne}
-                            onChange={(e) => setImageOne(e.target.value)}
-                            className='create-form-input'
-                            placeholder='Image URL'
-                        />
-                        <input
-                            type='url'
-                            value={imageTwo}
-                            onChange={(e) => setImageTwo(e.target.value)}
-                            className='create-form-input'
-                            placeholder='Image URL'
-                        />
-                        <input
-                            type='url'
-                            value={imageThree}
-                            onChange={(e) => setImageThree(e.target.value)}
-                            className='create-form-input'
-                            placeholder='Image URL'
-                        />
-                        <input
-                            type='url'
-                            value={imageFour}
-                            onChange={(e) => setImageFour(e.target.value)}
-                            className='create-form-input'
-                            placeholder='Image URL'
-                        />
-                    </label>
-                </section>
-                <button type='submit' className='create-form-button'>Create Spot</button>
+                {!spotId && (
+                    <section className='form-section'>
+                        <h2 className='section-heading'>Liven up your spot with photos</h2>
+                        <p className='create-form-caption'>Submit a link to at least one photo to publish your spot.</p>
+                        <label className='create-form-label'>
+                            <input
+                                type='url'
+                                value={previewImage}
+                                onChange={handleInputs(setPreviewImage, 'previewImage')}
+                                className='create-form-input'
+                                placeholder='Preview Image URL'
+                                ref={(el) => inputRefs.current.previewImage = el}
+                            />
+                            {errors.previewImage && <p className='create-spot-error'>{errors.previewImage}</p>}
+                            <input
+                                type='url'
+                                value={imageOne}
+                                onChange={(e) => setImageOne(e.target.value)}
+                                className='create-form-input'
+                                placeholder='Image URL'
+                            />
+                            <input
+                                type='url'
+                                value={imageTwo}
+                                onChange={(e) => setImageTwo(e.target.value)}
+                                className='create-form-input'
+                                placeholder='Image URL'
+                            />
+                            <input
+                                type='url'
+                                value={imageThree}
+                                onChange={(e) => setImageThree(e.target.value)}
+                                className='create-form-input'
+                                placeholder='Image URL'
+                            />
+                            <input
+                                type='url'
+                                value={imageFour}
+                                onChange={(e) => setImageFour(e.target.value)}
+                                className='create-form-input'
+                                placeholder='Image URL'
+                            />
+                        </label>
+                    </section>
+                )}
+                <div>
+                    <button type='submit' className='create-form-button'>
+                        {spotId ? 'Update Spot' : 'Create Spot'}
+                    </button>
+                </div>
             </form>
         </div>
     )

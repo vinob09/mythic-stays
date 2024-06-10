@@ -48,7 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/spots/:spotId/edit',
-        element: <CreateSpot isUpdate />
+        element: <CreateSpot />
       }
     ]
   }

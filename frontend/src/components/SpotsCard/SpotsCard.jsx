@@ -1,15 +1,12 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
+import { useModal } from '../../context/Modal';
+import DeleteSpot from '../DeleteSpot/DeleteSpot';
 import './SpotsCard.css';
 
 const SpotsCard = ({ spot, manage }) => {
-    const { spotId } = useParams();
     const price = spot.price ? parseFloat(spot.price) : 0;
-
-    // handle updating curr user spot
-    const handleUpdate = () => {
-        <Link to={`/spots/${spotId}/edit`}></Link>
-    }
+    const { setModalContent } = useModal();
 
     return (
         <div>
@@ -29,8 +26,12 @@ const SpotsCard = ({ spot, manage }) => {
             </Link>
             {manage && (
                 <div>
-                    <button onClick={handleUpdate}>Update</button>
-                    <button>Delete</button>
+                    <Link to={`/spots/${spot.id}/edit`}>
+                        <button>Update</button>
+                    </Link>
+                    <button onClick={() => setModalContent(<DeleteSpot spotId={spot.id} />)}>
+                        Delete
+                    </button>
                 </div>
             )}
         </div>
