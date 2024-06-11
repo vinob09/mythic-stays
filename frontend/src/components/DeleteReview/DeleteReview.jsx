@@ -1,10 +1,42 @@
+import { useDispatch } from 'react-redux';
+import { useModal } from '../../context/Modal';
+import { deleteUserReview } from '../../store/reviews';
 import './DeleteReview.css';
 
-const DeleteReview = () => {
+const DeleteReview = ({ reviewId }) => {
+    const dispatch = useDispatch();
+    const { closeModal } = useModal();
+
+    const handleDelete = () => {
+        dispatch(deleteUserReview(reviewId))
+            .then(() => {
+                closeModal();
+            })
+    };
+
+    const handleCancel = () => {
+        closeModal();
+    };
+
     return (
-        <div>
-            <h2>Delete a Review</h2>
-        </div>
+        <form className='delete-review-modal-form'>
+            <h2 className='delete-review-title'>Confirm Delete</h2>
+            <p>Are you sure you want to delete this review?</p>
+            <button
+                type='button'
+                onClick={handleDelete}
+                className='delete-review-yes-button'
+            >
+                Yes (Delete Review)
+            </button>
+            <button
+                type='button'
+                onClick={handleCancel}
+                className='delete-review-no-button'
+            >
+                No (Keep Review)
+            </button>
+        </form>
     )
 };
 

@@ -7,6 +7,7 @@ import { useModal } from '../../context/Modal';
 import { fetchReviews, getSpotDetails, selectReviewsArray } from '../../store/spots';
 import ReviewFormModal from '../ReviewFormModal/ReviewFormModal';
 import './SpotsDetails.css';
+import DeleteReview from '../DeleteReview/DeleteReview';
 
 const SpotsDetails = () => {
     const { spotId } = useParams();
@@ -121,6 +122,11 @@ const SpotsDetails = () => {
                                         <p>{review.User ? review.User.firstName : (sessionUser && sessionUser.firstName)}</p>
                                         <p>{formattedDate}</p>
                                         <p>{review.review}</p>
+                                        {sessionUser && hasReviews && (
+                                            <button onClick={() => setModalContent(<DeleteReview spotId={spotId} />)}>
+                                                Delete
+                                            </button>
+                                        )}
                                     </div>
                                 )
                             })}
