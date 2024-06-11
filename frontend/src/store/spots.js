@@ -10,6 +10,7 @@ const CREATE_REVIEW = 'spots/createReview';
 const USER_SPOTS = 'spots/userSpots';
 const UPDATE_SPOTS = 'spots/updateSpots';
 const DELETE_SPOT = 'spots/deleteSpot';
+const DELETE_REVIEW = 'spots/deleteReview';
 
 const loadSpots = (payload) => {
     return {
@@ -78,7 +79,14 @@ const deleteSpot = (spotId) => {
         type: DELETE_SPOT,
         payload: spotId
     }
-}
+};
+
+const deleteReview = (reviewId) => {
+    return {
+        type: DELETE_REVIEW,
+        payload: reviewId
+    }
+};
 
 // load all spots
 export const getSpots = () => async (dispatch) => {
@@ -193,6 +201,17 @@ export const deleteASpot = (spotId) => async (dispatch) => {
     }
 };
 
+// delete a review
+export const deleteUserReview = (reviewId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE'
+    })
+
+    if (response.ok) {
+        dispatch(deleteReview(reviewId))
+    }
+};
+
 
 // helper func for calculating new star average
 const calculateNewAvgStarRating = (reviews) => {
@@ -270,6 +289,15 @@ const spotsReducer = (state = initialState, action) => {
             const newState = { ...state, loadSpots: { ...state.loadSpots }, currUser: { ...state.currUser } };
             delete newState.loadSpots[spotId];
             delete newState.currUser[spotId];
+            return newState;
+        }
+        case DELETE_REVIEW: {
+            const reviewId = action.payload;
+            const newState = { ...state, reviews: { ...state.reviews }, currSpot: { ...state.currSpot } };
+            delete newState.reviews[reviewId];
+            delete newState.currSpot[reviewId];
+            newState.currSpot.avgStarRating = calculateNewAvgStarRating(newState.reviews);
+            newState.currSpot.numReviews -= 1;
             return newState;
         }
         default:

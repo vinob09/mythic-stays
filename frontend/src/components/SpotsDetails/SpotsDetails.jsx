@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import { useModal } from '../../context/Modal';
 import { fetchReviews, getSpotDetails, selectReviewsArray } from '../../store/spots';
 import ReviewFormModal from '../ReviewFormModal/ReviewFormModal';
-import './SpotsDetails.css';
 import DeleteReview from '../DeleteReview/DeleteReview';
+import './SpotsDetails.css';
 
 const SpotsDetails = () => {
     const { spotId } = useParams();
@@ -50,6 +50,7 @@ const SpotsDetails = () => {
     const handleImageError = (e) => {
         e.target.src = '/sorry-image-not-available.jpg';
     }
+
 
     return isLoaded ? (
         <div className='details-page-container'>
@@ -122,8 +123,8 @@ const SpotsDetails = () => {
                                         <p>{review.User ? review.User.firstName : (sessionUser && sessionUser.firstName)}</p>
                                         <p>{formattedDate}</p>
                                         <p>{review.review}</p>
-                                        {sessionUser && hasReviews && (
-                                            <button onClick={() => setModalContent(<DeleteReview spotId={spotId} />)}>
+                                        {sessionUser &&  review.userId === sessionUser.id && (
+                                            <button onClick={() => setModalContent(<DeleteReview reviewId={review.id} />)}>
                                                 Delete
                                             </button>
                                         )}
