@@ -73,10 +73,10 @@ const updateSpots = (spot) => {
     }
 };
 
-const deleteSpot = (spot) => {
+const deleteSpot = (spotId) => {
     return {
         type: DELETE_SPOT,
-        spot
+        payload: spotId
     }
 }
 
@@ -190,7 +190,6 @@ export const deleteASpot = (spotId) => async (dispatch) => {
 
     if (response.ok) {
         dispatch(deleteSpot(spotId))
-        dispatch(userSpots(spotId))
     }
 };
 
@@ -268,9 +267,10 @@ const spotsReducer = (state = initialState, action) => {
         }
         case DELETE_SPOT: {
             const spotId = action.payload;
-            const newState = { ...state.loadSpots };
-            delete newState[spotId];
-            return { ...state, loadSpots: newState }
+            const newState = { ...state, loadSpots: { ...state.loadSpots }, currUser: { ...state.currUser } };
+            delete newState.loadSpots[spotId];
+            delete newState.currUser[spotId];
+            return newState;
         }
         default:
             return state;
