@@ -11,7 +11,7 @@ const CreateSpot = () => {
     const navigate = useNavigate();
     const inputRefs = useRef({});
 
-    const spot = useSelector((state) => state.spots[spotId]);
+    const spot = useSelector((state) => state.spots.currSpot);
 
     const [country, setCountry] = useState("");
     const [address, setAddress] = useState("");
@@ -57,19 +57,19 @@ const CreateSpot = () => {
     }, [dispatch, spotId]);
 
     useEffect(() => {
-        if (spot) {
-            setCountry(spot.country);
-            setAddress(spot.address);
-            setCity(spot.city);
-            setState(spot.state);
-            setLat(spot.lat);
-            setLng(spot.lng);
-            setDescription(spot.description);
-            setName(spot.name);
-            setPrice(spot.price);
-            setPreviewImage(spot.previewImage);
+        if (spot && spotId) {
+            setCountry(spot.country || "");
+            setAddress(spot.address || "");
+            setCity(spot.city || "");
+            setState(spot.state || "");
+            setLat(spot.lat || "");
+            setLng(spot.lng || "");
+            setDescription(spot.description || "");
+            setName(spot.name || "");
+            setPrice(spot.price || "");
+            setPreviewImage(spot.previewImage || "");
         }
-    }, [spot]);
+    }, [spot, spotId]);
 
     // handle errors to clear when input is updated
     const handleInputs = (setter, field) => (e) => {
@@ -112,11 +112,19 @@ const CreateSpot = () => {
                 } else {
                     // dispatching create new spot action
                     const newSpot = await dispatch(formNewSpot(spotData));
-                    const spotId = newSpot.id;
+                    const newSpotId = newSpot.id;
                     // dispatching image upload creation
                     // use Promise.all()
                     const imageUrls = [previewImage, imageOne, imageTwo, imageThree, imageFour].filter(url => url);
-                    const imagePromises = imageUrls.map(url => dispatch(formNewImage(spotId, { url })));
+                    // const imagePromises = imageUrls.map(url => dispatch(formNewImage(spotId, { url })));
+                    const displayPreview = imageUrls[0] ? 'true' : 'false';
+                    const imagePromises = imageUrls.map((url) => {
+                        const payload = {
+                            url,
+                            displayPreview
+                        }
+                        return dispatch(formNewImage(newSpotId, payload))
+                    })
                     await Promise.all(imagePromises);
                     // navigate to new spot details after promise images are all loaded
                     navigate(`/spots/${newSpot.id}`);
@@ -308,6 +316,7 @@ const CreateSpot = () => {
             </form>
         </div>
     )
+
 };
 
 export default CreateSpot;

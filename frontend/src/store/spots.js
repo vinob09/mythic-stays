@@ -115,6 +115,7 @@ export const fetchReviews = (spotId) => async (dispatch) => {
 export const formNewSpot = (payload) => async (dispatch) => {
     const response = await csrfFetch('/api/spots', {
         method: 'POST',
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
 
@@ -127,9 +128,11 @@ export const formNewSpot = (payload) => async (dispatch) => {
 
 // create an image
 export const formNewImage = (spotId, payload) => async (dispatch) => {
+    const { url, displayPreview } = payload;
     const response = await csrfFetch(`/api/spots/${spotId}/images`, {
         method: 'POST',
-        body: JSON.stringify(payload)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url, preview: displayPreview })
     })
 
     if (response.ok) {
@@ -143,6 +146,7 @@ export const formNewImage = (spotId, payload) => async (dispatch) => {
 export const formNewReview = (spotId, payload) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     })
 
@@ -167,6 +171,7 @@ export const getCurrUserSpots = () => async (dispatch) => {
 export const updateCurrUserSpots = (spotId, payload) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     })
 
@@ -241,10 +246,14 @@ const spotsReducer = (state = initialState, action) => {
         case CREATE_IMAGE: {
             const { spotId, image } = action.payload;
             const newState = { ...state, images: { ...state.images } };
+
             if (!newState.images[spotId]) {
                 newState.images[spotId] = [];
             }
             newState.images[spotId].push(image);
+            if (image.previewImage) {
+                newState.loadSpots[spotId].previewImage = image.url;
+            }
             return newState;
         }
         case USER_SPOTS: {
@@ -255,13 +264,13 @@ const spotsReducer = (state = initialState, action) => {
             return newState;
         }
         case UPDATE_SPOTS: {
-            return {...state, [action.spot.id]: action.spot};
+            return { ...state, [action.spot.id]: action.spot };
         }
         case DELETE_SPOT: {
             const spotId = action.payload;
-            const newState = {...state.loadSpots};
+            const newState = { ...state.loadSpots };
             delete newState[spotId];
-            return {...state, loadSpots: newState}
+            return { ...state, loadSpots: newState }
         }
         default:
             return state;
