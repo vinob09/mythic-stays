@@ -16,7 +16,7 @@ const DeleteSpot = ({ spotId }) => {
 
     const handleCancel = () => {
         closeModal();
-    }
+    };
 
     return (
         <form className='delete-modal-form'>
