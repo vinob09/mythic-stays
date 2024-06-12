@@ -97,6 +97,17 @@
     background-color: darkgrey;
 }
 
+.details-review-button {
+    background-color: #4A6C6F;
+    color: white;
+    border: 2px solid black;
+    font-family: "Comic Neue", cursive;
+}
+
+.details-review-button:hover {
+    background-color: darkgray;
+}
+
 .reviews-comments-container {
     display: flex;
     padding-top: 10px;

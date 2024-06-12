@@ -56,7 +56,7 @@ const ReviewFormModal = ({ spotId }) => {
                     onChange={(e) => setReview(e.target.value)}
                     placeholder='Leave your review here...'
                 />
-                <div>
+                <div className='star-rating-container'>
                     {[...Array(5)].map((_, index) => {
                         const starRating = index + 1;
                         return (
@@ -69,7 +69,7 @@ const ReviewFormModal = ({ spotId }) => {
                             />
                         );
                     })}
-                    <p>Stars</p>
+                    <p className='star-text'>Stars</p>
                 </div>
                 <button type='submit' disabled={buttonDisabled} className='review-modal-button'>Submit Your Review</button>
             </form>

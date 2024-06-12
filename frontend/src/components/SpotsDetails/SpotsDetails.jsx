@@ -107,7 +107,7 @@ const SpotsDetails = () => {
                 </div>
                 <div>
                     {sessionUser && !isOwner && !userHasReviewed && (
-                        <button onClick={() => setModalContent(<ReviewFormModal spotId={spotId} />)}>
+                        <button className='details-review-button' onClick={() => setModalContent(<ReviewFormModal spotId={spotId} />)}>
                             Post Your Review
                         </button>
                     )}
@@ -127,7 +127,7 @@ const SpotsDetails = () => {
                                             <p className='review-date'>{formattedDate}</p>
                                             <p className='review-text'>{review.review}</p>
                                             {sessionUser && review.userId === sessionUser.id && (
-                                                <button onClick={() => setModalContent(<DeleteReview reviewId={review.id} />)}>
+                                                <button className='details-review-button' onClick={() => setModalContent(<DeleteReview reviewId={review.id} />)}>
                                                     Delete
                                                 </button>
                                             )}
