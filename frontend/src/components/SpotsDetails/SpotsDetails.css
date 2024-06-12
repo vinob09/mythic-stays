@@ -83,7 +83,7 @@
     margin-top: 10px;
     width: 100%;
     text-align: center;
-    background-color: red;
+    background-color: #4A6C6F;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -94,7 +94,7 @@
 }
 
 .details-spot-button:hover {
-    background-color: darkred;
+    background-color: darkgrey;
 }
 
 .reviews-comments-container {
