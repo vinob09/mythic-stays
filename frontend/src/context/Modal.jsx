@@ -1,6 +1,7 @@
 import { createContext, useContext, useRef, useState } from "react";
 import ReactDOM from 'react-dom';
 import './Modal.css';
+import '../components/LoginFormModal/LoginForm.css';
 
 const ModalContext = createContext();
 
@@ -43,7 +44,7 @@ export function Modal() {
     return ReactDOM.createPortal(
         <div id="modal">
             <div id="modal-background" onClick={closeModal} />
-            <div id="modal-content">{modalContent}</div>
+            <div id="modal-content" className="login-modal-container">{modalContent}</div>
         </div>,
         modalRef.current
     )

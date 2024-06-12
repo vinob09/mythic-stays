@@ -116,7 +116,6 @@ const CreateSpot = () => {
                     // dispatching image upload creation
                     // use Promise.all()
                     const imageUrls = [previewImage, imageOne, imageTwo, imageThree, imageFour].filter(url => url);
-                    // const imagePromises = imageUrls.map(url => dispatch(formNewImage(spotId, { url })));
                     const displayPreview = imageUrls[0] ? 'true' : 'false';
                     const imagePromises = imageUrls.map((url) => {
                         const payload = {
