@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 .create-form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    font-family: "Comic Neue", cursive;
+
 }
 
 .spot-form {
@@ -18,6 +22,7 @@
 
 .create-form-title {
     text-align: center;
+    text-decoration: underline;
 }
 
 .section-heading {
@@ -44,13 +49,13 @@
     padding: 10px;
     border: 2px solid black;
     border-radius: 5px;
-    background-color: rgb(180, 210, 234);
+    background-color: #BCEBCB;
 }
 
 .create-form-button {
     width: 25%;
     padding: 10px;
-    background-color: red;
+    background-color: #4A6C6F;
     color: white;
     border: 1px solid black;
     box-shadow: 5px 5px 5px black;
@@ -61,7 +66,7 @@
 }
 
 .create-form-button:hover {
-    background-color: darkred;
+    background-color: darkgray;
 }
 
 .create-spot-error {
