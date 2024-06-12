@@ -25,14 +25,14 @@ const DeleteReview = ({ reviewId }) => {
             <button
                 type='button'
                 onClick={handleDelete}
-                className='delete-review-yes-button'
+                className='delete-review-button delete-review-yes-button'
             >
                 Yes (Delete Review)
             </button>
             <button
                 type='button'
                 onClick={handleCancel}
-                className='delete-review-no-button'
+                className='delete-review-button delete-review-no-button'
             >
                 No (Keep Review)
             </button>
