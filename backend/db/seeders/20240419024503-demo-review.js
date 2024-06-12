@@ -76,7 +76,7 @@ module.exports = {
       },
       {
         userId: 3,
-        spotId: 6,
+        spotId: 5,
         review: 'An enchanting vineyard with all the luxuries and accommodations a fine wizard like myself would enjoy. The wine was excellent and I shall buy it by the barrel to bring to my home in Waterdeep!',
         stars: 5,
         createdAt: '2020-05-10 05:45:59.210 +00:00'

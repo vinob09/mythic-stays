@@ -60,18 +60,6 @@ module.exports = {
         price: 1029.33
       },
       {
-        ownerId: 2,
-        address: '39 Hobbit Way',
-        city: 'Hobbiton',
-        state: 'The Shire',
-        country: 'Middle-earth',
-        lat: 19.3225449,
-        lng: -11.4348338,
-        name: `A Hobbit's Stay`,
-        description: 'Cozy, fireside nights in the Shire! Fireworks show included! This hobbit home is perfect for those that want to get away from any visitors or distant relations you may have. Tea and various cakes are baked fresh daily and provided to the home.',
-        price: 42.00
-      },
-      {
         ownerId: 1,
         address: '3 Corvo Bianco Estates',
         city: 'Sangreal Valley',
@@ -82,6 +70,18 @@ module.exports = {
         name: `Corvo Bianco Vineyards`,
         description: `Enjoy our award-winning wine and the estate's luxuries in the heart of Toussaint. This vineyard includes a majordomo that will assist you throughout your stay. We have spacious stables to accomodate your horse should you arrive on horseback.`,
         price: 182.50
+      },
+      {
+        ownerId: 2,
+        address: '39 Hobbit Way',
+        city: 'Hobbiton',
+        state: 'The Shire',
+        country: 'Middle-earth',
+        lat: 19.3225449,
+        lng: -11.4348338,
+        name: `A Hobbit's Stay`,
+        description: 'Cozy, fireside nights in the Shire! Fireworks show included! This hobbit home is perfect for those that want to get away from any visitors or distant relations you may have. Tea and various cakes are baked fresh daily and provided to the home.',
+        price: 42.00
       },
       {
         ownerId: 4,
