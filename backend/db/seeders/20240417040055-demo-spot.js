@@ -84,18 +84,6 @@ module.exports = {
         price: 182.50
       },
       {
-        ownerId: 3,
-        address: '2456 Last Light',
-        city: 'Last Light Valley',
-        state: 'Shadow-Cursed Lands',
-        country: 'Western Heartlands',
-        lat: 27.6325193,
-        lng: -20.4649397,
-        name: `The Last Light Inn`,
-        description: `Upon banishment of the Shadow that cursed these lands, the Last Light Inn was remodeled and shines ever so brightly amidst the ruins. The inn provides all meals, drinks are extra. Bask in Selune's light and glory!`,
-        price: 80.50
-      },
-      {
         ownerId: 4,
         address: '2 Anderson Way',
         city: 'Silversun Strip',
