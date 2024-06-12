@@ -56,8 +56,10 @@ function ProfileButton({ user }) {
                     <div className='profile-details'>
                         <span>Hello, {user.firstName}!</span>
                         <span>{user.email}</span>
-                        <Link to={'/spots/current'}>Manage Spots</Link>
-                        <button onClick={logout}>Log Out</button>
+                        <hr className='profile-dropdown-underline' />
+                        <Link to={'/spots/current'} className='manage-spots-link'>Manage Spots</Link>
+                        <hr className='profile-dropdown-underline' />
+                        <button onClick={logout} className='logout-button'>Log Out</button>
                     </div>
                 ) : (
                     <div className='auth-buttons'>
