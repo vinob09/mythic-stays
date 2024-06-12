@@ -17,8 +17,6 @@ const CreateSpot = () => {
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
-    const [lat, setLat] = useState("");
-    const [lng, setLng] = useState("");
     const [description, setDescription] = useState("");
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
@@ -36,10 +34,6 @@ const CreateSpot = () => {
         if (!address) newErrors.address = 'Address is required';
         if (!city) newErrors.city = 'City is required';
         if (!state) newErrors.state = 'State is required';
-        if (!lng) newErrors.lng = 'Longitude is required';
-        if (!lat) newErrors.lat = 'Latitude is required';
-        if (lat > 90 || lat < -90) newErrors.lat = 'Latitude must be within -90 and 90';
-        if (lng > 180 || lng < -180) newErrors.lng = 'Longitude must be within -180 and 180';
         if (description.length < 30) newErrors.description = 'Description needs 30 or more characters';
         if (description.length > 255) newErrors.description = 'Description must be 255 characters or less';
         if (!name) newErrors.name = 'Name is required';
@@ -62,8 +56,6 @@ const CreateSpot = () => {
             setAddress(spot.address || "");
             setCity(spot.city || "");
             setState(spot.state || "");
-            setLat(spot.lat || "");
-            setLng(spot.lng || "");
             setDescription(spot.description || "");
             setName(spot.name || "");
             setPrice(spot.price || "");
@@ -86,6 +78,21 @@ const CreateSpot = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const hasErrors = validationErrors();
+
+        // handle image URLs ending
+        const imageUrls = [previewImage, imageOne, imageTwo, imageThree, imageFour].filter(url => url);
+        const invalidUrls = imageUrls.filter(url => {
+            const extension = url.split('.').pop().toLowerCase();
+            return !['png', 'jpg', 'jpeg'].includes(extension);
+        });
+        if (invalidUrls.length > 0) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                previewImage: 'Image URL needs to end in png, jpg or jpeg'
+            }))
+            return;
+        }
+
         if (Object.keys(hasErrors).length > 0) {
             setErrors(hasErrors);
             const firstErrorField = Object.keys(hasErrors)[0];
@@ -96,8 +103,6 @@ const CreateSpot = () => {
                 address,
                 city,
                 state,
-                lat: parseFloat(lat),
-                lng: parseFloat(lng),
                 description,
                 name,
                 price: parseFloat(price)
@@ -115,7 +120,6 @@ const CreateSpot = () => {
                     const newSpotId = newSpot.id;
                     // dispatching image upload creation
                     // use Promise.all()
-                    const imageUrls = [previewImage, imageOne, imageTwo, imageThree, imageFour].filter(url => url);
                     const displayPreview = imageUrls[0] ? 'true' : 'false';
                     const imagePromises = imageUrls.map((url) => {
                         const payload = {
@@ -180,7 +184,6 @@ const CreateSpot = () => {
                                 ref={(el) => inputRefs.current.city = el}
                             />
                         </label>
-                        <span className='create-form-input-comma'>,</span>
                         <label className='create-form-label'> State
                             <input
                                 type='text'
@@ -194,31 +197,6 @@ const CreateSpot = () => {
                     </div>
                     {errors.city && <p className='create-spot-error'>{errors.city}</p>}
                     {errors.state && <p className='create-spot-error'>{errors.state}</p>}
-                    <div className='create-form-input-row'>
-                        <label className='create-form-label'> Latitude
-                            <input
-                                type='number'
-                                value={lat}
-                                className='create-form-input'
-                                placeholder='Latitude'
-                                onChange={handleInputs(setLat, 'lat')}
-                                ref={(el) => inputRefs.current.lat = el}
-                            />
-                        </label>
-                        <span className='create-form-input-comma'>,</span>
-                        <label className='create-form-label'> Longitude
-                            <input
-                                type='number'
-                                value={lng}
-                                className='create-form-input'
-                                placeholder='Longitude'
-                                onChange={handleInputs(setLng, 'lng')}
-                                ref={(el) => inputRefs.current.lng = el}
-                            />
-                        </label>
-                    </div>
-                    {errors.lat && <p className='create-spot-error'>{errors.lat}</p>}
-                    {errors.lng && <p className='create-spot-error'>{errors.lng}</p>}
                 </section>
                 <section className='form-section'>
                     <h2 className='section-heading'>Describe your place to guests...</h2>

@@ -31,10 +31,12 @@
 
 .create-form-caption {
     margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .create-form-label {
-    display: block;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 10px;
 }
 
@@ -79,10 +81,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.create-form-input-comma {
-    margin: 0 10px;
 }
 
 .create-form-submit-button {
