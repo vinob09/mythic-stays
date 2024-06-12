@@ -6,12 +6,20 @@
     width: 300px;
 }
 
-.login-modal-title {
+.login-modal-title-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.login-modal-icon-star {
     font-size: 30px;
-    margin-bottom: 30px;
+}
+
+.login-modal-title {
+    font-size: 30px;
     font-family: "Comic Neue", cursive;
+    margin: 0 10px;
 }
 
 .login-modal-form {
@@ -19,8 +27,12 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    margin: 0 auto;
     font-family: "Comic Neue", cursive;
     font-weight: bold;
+    box-sizing: border-box;
 }
 
 .login-modal-error-message {

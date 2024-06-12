@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
+import { WiStars } from "react-icons/wi";
 import './LoginForm.css';
 
 function LoginFormModal() {
@@ -67,9 +68,13 @@ function LoginFormModal() {
 
     return (
         <>
-            <h1 className='login-modal-title'>Log In</h1>
+            <div className='login-modal-title-container'>
+                <WiStars className='login-modal-icon-star' />
+                <h1 className='login-modal-title'>Log In</h1>
+                <WiStars className='login-modal-icon-star' />
+            </div>
             <form onSubmit={handleSubmit} className='login-modal-form'>
-            {hasSubmitted && errors.credential && (<p className='login-modal-error-message'>{errors.credential}</p>)}
+                {hasSubmitted && errors.credential && (<p className='login-modal-error-message'>{errors.credential}</p>)}
                 <label>
                     <input
                         type="text"

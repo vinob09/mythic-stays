@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
+import { WiStars } from "react-icons/wi";
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
 
@@ -70,7 +71,11 @@ function SignupFormModal() {
 
     return (
         <>
-            <h1 className='signup-modal-title'>Sign Up</h1>
+            <div className='signup-modal-title-container'>
+                <WiStars className='signup-modal-icon' />
+                <h1 className='signup-modal-title'>Sign Up</h1>
+                <WiStars className='signup-modal-icon' />
+            </div>
             <form onSubmit={handleSubmit} className='signup-modal-form'>
                 <label>
                     <input
@@ -138,7 +143,7 @@ function SignupFormModal() {
                     />
                 </label>
                 {errors.confirmPassword && <p className='signup-modal-error-message'>{errors.confirmPassword}</p>}
-                <button type="submit" disabled={isButtonDisabled}>Sign Up</button>
+                <button type="submit" disabled={isButtonDisabled} className='signup-modal-button'>Sign Up</button>
             </form>
         </>
     );
