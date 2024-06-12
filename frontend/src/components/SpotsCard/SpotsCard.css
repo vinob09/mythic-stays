@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 a {
     text-decoration: none !important;
 }
@@ -10,6 +12,7 @@ a {
     width: 300px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
+    font-family: "Comic Neue", cursive;
 }
 
 .spot-card:hover {
@@ -27,23 +30,28 @@ a {
     margin: 10px 0;
     font-size: 15px;
     color: #333;
+    font-family: "Comic Neue", cursive;
 }
 
 .spot-details p {
     margin: 5px 0;
     color: #555;
+    font-family: "Comic Neue", cursive;
 }
 
 .city-stars {
     display: flex;
     justify-content: space-between;
+    font-family: "Comic Neue", cursive;
 }
 
 .spot-rating {
     display: flex;
+    font-family: "Comic Neue", cursive;
 }
 
 .spot-price {
     font-weight: bold;
     color: #333;
+    font-family: "Comic Neue", cursive;
 }
