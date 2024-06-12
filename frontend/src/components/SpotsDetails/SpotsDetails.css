@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 .details-page-container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
+    font-family: "Comic Neue", cursive;
+}
+
+.details-title-spot {
+    text-decoration: underline;
+    font-size: 35px;
 }
 
 .details-image-container {
@@ -29,12 +37,17 @@
     object-fit: cover;
 }
 
+
 .details-container {
     display: flex;
     justify-content: space-between;
     box-shadow: 0 3px rgb(0, 0, 0);
     padding-bottom: 50px;
     margin-bottom: 20px;
+}
+
+.details-owner-description {
+    margin-right: 80px;
 }
 
 .details-price-reviews {
@@ -87,11 +100,45 @@
 .reviews-comments-container {
     display: flex;
     padding-top: 10px;
+    align-items: center;
 }
 
 .reviews-stars-comments {
     display: flex;
     font-weight: bolder;
-    font-size: 20px;
+    font-size: 22px;
     align-items: center;
+}
+
+.reviews-stars-comments p {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.details-spot-rating {
+    display: flex;
+    align-items: center;
+}
+
+.review-container {
+    border-bottom: 1px solid #ddd;
+}
+
+.review-container:last-child {
+    border-bottom: none;
+}
+
+.reviewer-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.review-date {
+    font-size: 18px;
+    color: #5D737E;
+}
+
+.review-text {
+    font-size: 16px;
+    margin-top: 5px;
 }

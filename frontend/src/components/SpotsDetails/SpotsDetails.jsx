@@ -54,7 +54,7 @@ const SpotsDetails = () => {
 
     return isLoaded ? (
         <div className='details-page-container'>
-            <h2>{spot.name}</h2>
+            <h2 className='details-title-spot'>{spot.name}</h2>
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
             <div className='details-image-container'>
                 <img src={spot.SpotImages[0].url} className='details-image-main' onError={handleImageError} />
@@ -65,7 +65,7 @@ const SpotsDetails = () => {
                 </div>
             </div>
             <div className='details-container'>
-                <div>
+                <div className='details-owner-description'>
                     <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
                     <p>{spot.description}</p>
                 </div>
@@ -93,13 +93,15 @@ const SpotsDetails = () => {
                     <div className='reviews-stars-comments'>
                         {spot.avgStarRating ? (
                             <p className="details-spot-rating"><FaStar /> {(spot.avgStarRating).toFixed(1)}</p>
-                        ) : (<FaStar />)}
+                        ) : (
+                            <p className='details-spot-rating new-rating'><FaStar /></p>
+                        )}
                         {spot.numReviews ? (
                             <p className="details-spot-rating"><LuDot />{spot.numReviews} {
                                 spot.numReviews > 1 ? ('reviews') : ('review')
                             }</p>
                         ) : (
-                            <p className="details-spot-rating">New!</p>
+                            spot.avgStarRating === null && <p className="details-spot-rating new-text">New!</p>
                         )}
                     </div>
                 </div>
@@ -119,15 +121,17 @@ const SpotsDetails = () => {
                                 const options = { year: 'numeric', month: 'long' };
                                 const formattedDate = reviewDate.toLocaleDateString(undefined, options);
                                 return (
-                                    <div key={review.id}>
-                                        <p>{review.User ? review.User.firstName : (sessionUser && sessionUser.firstName)}</p>
-                                        <p>{formattedDate}</p>
-                                        <p>{review.review}</p>
-                                        {sessionUser &&  review.userId === sessionUser.id && (
-                                            <button onClick={() => setModalContent(<DeleteReview reviewId={review.id} />)}>
-                                                Delete
-                                            </button>
-                                        )}
+                                    <div key={review.id} className='review-container'>
+                                        <div>
+                                            <p className='reviewer-name'>{review.User ? review.User.firstName : (sessionUser && sessionUser.firstName)}</p>
+                                            <p className='review-date'>{formattedDate}</p>
+                                            <p className='review-text'>{review.review}</p>
+                                            {sessionUser && review.userId === sessionUser.id && (
+                                                <button onClick={() => setModalContent(<DeleteReview reviewId={review.id} />)}>
+                                                    Delete
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
                                 )
                             })}
