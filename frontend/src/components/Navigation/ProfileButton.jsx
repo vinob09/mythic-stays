@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { FaUserCircle, FaBars } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
@@ -56,7 +56,10 @@ function ProfileButton({ user }) {
                     <div className='profile-details'>
                         <span>Hello, {user.firstName}!</span>
                         <span>{user.email}</span>
-                        <button onClick={logout}>Log Out</button>
+                        <hr className='profile-dropdown-underline' />
+                        <Link to={'/spots/current'} className='manage-spots-link'>Manage Spots</Link>
+                        <hr className='profile-dropdown-underline' />
+                        <button onClick={logout} className='logout-button'>Log Out</button>
                     </div>
                 ) : (
                     <div className='auth-buttons'>

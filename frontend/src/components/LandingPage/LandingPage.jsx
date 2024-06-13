@@ -6,16 +6,19 @@ import './LandingPage.css';
 
 const LandingPage = () => {
     const dispatch = useDispatch();
-    const spots = useSelector(state => state.spots.loadSpots);
+    const spots = useSelector(state => Object.values(state.spots.loadSpots));
 
     useEffect(() => {
         dispatch(getSpots())
     }, [dispatch]);
 
+    // sort spots to show newest on landing page
+    const sortedSpots = spots.sort((a, b) => b.id - a.id);
+
     return (
         <div className='spots-container'>
-            {Object.values(spots).map((spot) => (
-                <SpotsCard key={spot.id} spot={spot}/>
+            {sortedSpots.map((spot) => (
+                <SpotsCard key={spot.id} spot={spot} />
             ))}
         </div>
     )

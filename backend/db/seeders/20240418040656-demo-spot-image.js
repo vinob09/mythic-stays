@@ -32,12 +32,12 @@ module.exports = {
         preview: true
       },
       {
-        spotId: 5,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-1.jpg',
         preview: true
       },
       {
-        spotId: 6,
+        spotId: 5,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-1.png',
         preview: true
       },
@@ -62,12 +62,12 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 5,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-2.jpg',
         preview: false
       },
       {
-        spotId: 6,
+        spotId: 5,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-2.png',
         preview: false
       },
@@ -92,12 +92,12 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 5,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-3.jpg',
         preview: false
       },
       {
-        spotId: 6,
+        spotId: 5,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-3.jpg',
         preview: false
       },
@@ -122,12 +122,12 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 5,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-4.jpg',
         preview: false
       },
       {
-        spotId: 6,
+        spotId: 5,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-4.jpg',
         preview: false
       },
@@ -152,62 +152,37 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 5,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-5.jpg',
         preview: false
       },
       {
-        spotId: 6,
+        spotId: 5,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/corvo-bianco-5.png',
         preview: false
       },
       {
         spotId: 7,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/last-light-1.png',
-        preview: true
-      },
-      {
-        spotId: 7,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/last-light-2.jpg',
-        preview: false
-      },
-      {
-        spotId: 7,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/last-light-3.jpg',
-        preview: false
-      },
-      {
-        spotId: 7,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/last-light-4.jpg',
-        preview: false
-      },
-      {
-        spotId: 7,
-        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/last-light-5.jpg',
-        preview: false
-      },
-      {
-        spotId: 8,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-1.png',
         preview: true
       },
       {
-        spotId: 8,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-2.jpg',
         preview: false
       },
       {
-        spotId: 8,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-3.png',
         preview: false
       },
       {
-        spotId: 8,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-4.jpg',
         preview: false
       },
       {
-        spotId: 8,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-5.png',
         preview: false
       }
@@ -218,7 +193,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8] }
+      spotId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7] }
     }, {});
   }
 };

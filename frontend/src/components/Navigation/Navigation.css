@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
 .hidden {
     display: none;
 }
@@ -9,10 +11,23 @@
     padding: 10px 20px;
     box-shadow: 0 3px rgba(0, 0, 0, 0.1);
     position: relative;
+    font-family: "Comic Neue", cursive;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.create-spot-link {
+    margin-right: 20px;
+    font-family: "Comic Neue", cursive;
+    color: #4AA679;
 }
 
 .logo {
-    height: 100px;
+    height: 150px;
+    width: 150px;
 }
 
 .profile-button {
@@ -31,20 +46,44 @@
 
 .profile-dropdown {
     position: absolute;
-    top: 80px;
+    top: 115px;
     right: 0;
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding: 10px;
-    width: 200px;
+    width: 150px;
 }
 
 .profile-details,
 .auth-buttons {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
+}
+
+.profile-dropdown-underline {
+    border: none;
+    border-top: 1px solid black;
+    width: 100%;
+    margin: 0 10px 0;
+}
+
+.logout-button {
+    padding: 5px;
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 30px;
+    background-color: lightgray;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background-color: #e0e0e0;
 }
 
 .modal-menu-item {
@@ -56,4 +95,8 @@
 
 .modal-menu-item:hover {
     background: #f0f0f0;
+}
+
+.manage-spots-link {
+    color: #4AA679;
 }

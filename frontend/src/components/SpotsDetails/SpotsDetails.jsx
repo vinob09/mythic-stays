@@ -3,18 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FaStar } from 'react-icons/fa';
 import { LuDot } from "react-icons/lu";
 import { useEffect, useState } from 'react';
+import { useModal } from '../../context/Modal';
 import { fetchReviews, getSpotDetails, selectReviewsArray } from '../../store/spots';
+import ReviewFormModal from '../ReviewFormModal/ReviewFormModal';
+import DeleteReview from '../DeleteReview/DeleteReview';
 import './SpotsDetails.css';
 
 const SpotsDetails = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const { setModalContent } = useModal();
 
     const spot = useSelector(state => state.spots.currSpot);
     const sessionUser = useSelector(state => state.session.user);
     const reviews = useSelector(selectReviewsArray);
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [userHasReviewed, setUserHasReviewed] = useState(false);
 
     useEffect(() => {
         dispatch(getSpotDetails(spotId))
@@ -23,47 +28,64 @@ const SpotsDetails = () => {
             .then(() => setIsLoaded(true));
     }, [dispatch, spotId]);
 
+    // checking for session user's reviews for the spot, if any
+    useEffect(() => {
+        if (sessionUser && reviews) {
+            setUserHasReviewed(reviews.some(review => review.userId === sessionUser.id))
+        }
+    }, [sessionUser, reviews]);
+
+    // handle window alert to return
     const handleReserveButton = () => {
         return alert('Feature Coming Soon...')
     }
 
-    // check session user is not owner
+    // check if session user is owner of spot
     const isOwner = sessionUser && spot && sessionUser.id === spot.Owner.id;
     // check review length
     const hasReviews = reviews.length > 0;
+    // sort reviews to show newest to oldest
+    const sortedReviews = [...reviews].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    // handle broken image links
+    const handleImageError = (e) => {
+        e.target.src = '/sorry-image-not-available.jpg';
+    }
+
 
     return isLoaded ? (
-        <div>
-            <h2>{spot.name}</h2>
+        <div className='details-page-container'>
+            <h2 className='details-title-spot'>{spot.name}</h2>
             <h3>{spot.city}, {spot.state}, {spot.country}</h3>
             <div className='details-image-container'>
-                <img src={spot.SpotImages[0].url} className='details-image-main' />
-                <div>
-                    {spot.SpotImages.slice(1).map(image => (
-                        <img key={image.id} src={image.url} className='details-image-secondary' />
+                <img src={spot.SpotImages[0].url} className='details-image-main' onError={handleImageError} />
+                <div className='details-secondary-images'>
+                    {spot.SpotImages.slice(1, 5).map(image => (
+                        <img key={image.id} src={image.url} className='details-image-secondary' onError={handleImageError} />
                     ))}
                 </div>
             </div>
             <div className='details-container'>
-                <div>
+                <div className='details-owner-description'>
                     <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
                     <p>{spot.description}</p>
                 </div>
                 <div className='details-price-reviews'>
-                    <h2>${spot.price} night</h2>
-                    <div>
-                        {spot.avgStarRating ? (
-                            <p className="details-spot-rating"><FaStar /> {(spot.avgStarRating).toFixed(1)}</p>
-                        ) : (<FaStar />)}
+                    <div className='details-price-reviews-top'>
+                        <h2>${parseFloat(spot.price).toFixed(2)} night</h2>
+                        <div className="details-spot-rating">
+                            {spot.avgStarRating ? (
+                                <p><FaStar /> {(spot.avgStarRating).toFixed(1)}</p>
+                            ) : (<FaStar />)}
+                            {spot.numReviews ? (
+                                <p><LuDot />{spot.numReviews} {
+                                    spot.numReviews > 1 ? ('reviews') : ('review')
+                                }</p>
+                            ) : (
+                                <p>New!</p>
+                            )}
+                        </div>
                     </div>
-                    {spot.numReviews ? (
-                        <p className="details-spot-rating"><LuDot />{spot.numReviews} {
-                            spot.numReviews > 1 ? ('reviews') : ('review')
-                        }</p>
-                    ) : (
-                        <p className="details-spot-rating">New!</p>
-                    )}
-                    <button onClick={handleReserveButton}>Reserve</button>
+                    <button onClick={handleReserveButton} className='details-spot-button'>Reserve</button>
                 </div>
             </div>
             <div>
@@ -71,31 +93,45 @@ const SpotsDetails = () => {
                     <div className='reviews-stars-comments'>
                         {spot.avgStarRating ? (
                             <p className="details-spot-rating"><FaStar /> {(spot.avgStarRating).toFixed(1)}</p>
-                        ) : (<FaStar />)}
+                        ) : (
+                            <p className='details-spot-rating new-rating'><FaStar /></p>
+                        )}
                         {spot.numReviews ? (
                             <p className="details-spot-rating"><LuDot />{spot.numReviews} {
                                 spot.numReviews > 1 ? ('reviews') : ('review')
                             }</p>
                         ) : (
-                            <p className="details-spot-rating">New!</p>
+                            spot.avgStarRating === null && <p className="details-spot-rating new-text">New!</p>
                         )}
                     </div>
                 </div>
                 <div>
+                    {sessionUser && !isOwner && !userHasReviewed && (
+                        <button className='details-review-button' onClick={() => setModalContent(<ReviewFormModal spotId={spotId} />)}>
+                            Post Your Review
+                        </button>
+                    )}
                     {sessionUser && !isOwner && !hasReviews ? (
                         <p>Be the first to post a review!</p>
                     ) : (
                         <div>
-                            {reviews.map(review => {
+                            {sortedReviews.map(review => {
                                 // convert to month/year format
                                 const reviewDate = new Date(review.createdAt);
                                 const options = { year: 'numeric', month: 'long' };
                                 const formattedDate = reviewDate.toLocaleDateString(undefined, options);
                                 return (
-                                    <div key={review.id}>
-                                        <p>{review.User.firstName}</p>
-                                        <p>{formattedDate}</p>
-                                        <p>{review.review}</p>
+                                    <div key={review.id} className='review-container'>
+                                        <div>
+                                            <p className='reviewer-name'>{review.User ? review.User.firstName : (sessionUser && sessionUser.firstName)}</p>
+                                            <p className='review-date'>{formattedDate}</p>
+                                            <p className='review-text'>{review.review}</p>
+                                            {sessionUser && review.userId === sessionUser.id && (
+                                                <button className='details-review-button' onClick={() => setModalContent(<DeleteReview reviewId={review.id} />)}>
+                                                    Delete
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
                                 )
                             })}

@@ -25,9 +25,11 @@ const validateSpot = [
         .notEmpty()
         .withMessage('Country is required'),
     check('lat')
+        .optional()
         .isFloat({ min: -90, max: 90 })
         .withMessage('Latitude must be within -90 and 90'),
     check('lng')
+        .optional()
         .isFloat({ min: -180, max: 180 })
         .withMessage('Longitude must be within -180 and 180'),
     check('name')
@@ -365,7 +367,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
                     reviewCount++;
                 }
                 spotJSON.avgRating = totalStars / reviewCount;
-            }   else {
+            } else {
                 spotJSON.avgRating = null;
             }
 
@@ -567,17 +569,17 @@ router.get('/', validateQueries, async (req, res, next) => {
     // return specified user queries
     let where = {};
     // lng
-    if (minLat !== undefined && maxLat !== undefined) where.lat = {[Op.between]: [minLat, maxLat]};
-    if (minLat !== undefined && maxLat === undefined) where.lat = {[Op.gte]: minLat};
-    if (minLat === undefined && maxLat !== undefined) where.lat = {[Op.lte]: maxLat};
+    if (minLat !== undefined && maxLat !== undefined) where.lat = { [Op.between]: [minLat, maxLat] };
+    if (minLat !== undefined && maxLat === undefined) where.lat = { [Op.gte]: minLat };
+    if (minLat === undefined && maxLat !== undefined) where.lat = { [Op.lte]: maxLat };
     // lng
-    if (minLng !== undefined && maxLng !== undefined) where.lng = {[Op.between]: [minLng, maxLng]};
-    if (minLng !== undefined && maxLng === undefined) where.lng = {[Op.gte]: minLng};
-    if (minLng === undefined && maxLng !== undefined) where.lng = {[Op.lte]: maxLng};
+    if (minLng !== undefined && maxLng !== undefined) where.lng = { [Op.between]: [minLng, maxLng] };
+    if (minLng !== undefined && maxLng === undefined) where.lng = { [Op.gte]: minLng };
+    if (minLng === undefined && maxLng !== undefined) where.lng = { [Op.lte]: maxLng };
     // price
-    if (minPrice !== undefined && maxPrice !== undefined) where.price = {[Op.between]: [minPrice, maxPrice]};
-    if (minPrice !== undefined && maxPrice === undefined) where.price = {[Op.gte]: minPrice};
-    if (minPrice === undefined && maxPrice !== undefined) where.price = {[Op.lte]: maxPrice};
+    if (minPrice !== undefined && maxPrice !== undefined) where.price = { [Op.between]: [minPrice, maxPrice] };
+    if (minPrice !== undefined && maxPrice === undefined) where.price = { [Op.gte]: minPrice };
+    if (minPrice === undefined && maxPrice !== undefined) where.price = { [Op.lte]: maxPrice };
 
 
     const spots = await Spot.findAll({
