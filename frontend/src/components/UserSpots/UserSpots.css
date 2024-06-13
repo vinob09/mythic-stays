@@ -1,7 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+.manage-spots-title {
+    margin-left: 40px;
+    font-size: 30px;
+    font-family: "Comic Neue", cursive;
+}
+
 .user-spots-container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     gap: 20px;
     padding: 20px;
+}
+
+.new-user-create-spot-button {
+    margin-left: 40px;
+    background-color: #4A6C6F;
+    border: 2px solid black;
+    font-family: "Comic Neue", cursive;
+    cursor: pointer;
+}
+
+.new-user-create-spot-button:hover {
+    background-color: darkgray;
+}
+
+.new-user-link {
+    color: white;
 }

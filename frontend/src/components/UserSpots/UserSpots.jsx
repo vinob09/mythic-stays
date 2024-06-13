@@ -17,9 +17,11 @@ const UserSpots = () => {
 
     return (
         <div>
-            <h2>Manage Spots</h2>
+            <h2 className='manage-spots-title'>Manage Spots</h2>
             {userSpots.length === 0 ? (
-                <Link to={'/spots/new'}>Create a New Spot</Link>
+                <button className='new-user-create-spot-button'>
+                    <Link to={'/spots/new'} className='new-user-link'>Create a New Spot</Link>
+                </button>
             ) : (<div className='user-spots-container'>
                 {userSpots.map((spot) => (
                     <SpotsCard key={spot.id} spot={spot} manage />

@@ -25,11 +25,11 @@ const SpotsCard = ({ spot, manage }) => {
                 </div>
             </Link>
             {manage && (
-                <div>
+                <div className='user-spots-update-delete'>
                     <Link to={`/spots/${spot.id}/edit`}>
-                        <button>Update</button>
+                        <button className='user-spots-update-button'>Update</button>
                     </Link>
-                    <button onClick={() => setModalContent(<DeleteSpot spotId={spot.id} />)}>
+                    <button className='user-spots-delete-button' onClick={() => setModalContent(<DeleteSpot spotId={spot.id} />)}>
                         Delete
                     </button>
                 </div>

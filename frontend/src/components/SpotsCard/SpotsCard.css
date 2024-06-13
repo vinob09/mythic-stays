@@ -55,3 +55,35 @@ a {
     color: #333;
     font-family: "Comic Neue", cursive;
 }
+
+.user-spots-update-delete {
+    margin-left: 20px;
+    display: flex;
+    padding: 8px;
+}
+
+.user-spots-update-button {
+    background-color: #4A6C6F;
+    border: 2px solid black;
+    font-family: "Comic Neue", cursive;
+    color: white;
+    cursor: pointer;
+    padding: 2px;
+    margin-right: 10px;
+}
+
+.user-spots-update-button:hover {
+    background-color: darkgray;
+}
+
+.user-spots-delete-button {
+    background-color: #4A6C6F;
+    border: 2px solid black;
+    font-family: "Comic Neue", cursive;
+    color: white;
+    cursor: pointer;
+}
+
+.user-spots-delete-button:hover {
+    background-color: darkgray;
+}
