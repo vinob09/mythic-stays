@@ -24,14 +24,14 @@ const DeleteSpot = ({ spotId }) => {
             <p>Are you sure you want to remove this spot?</p>
             <button
                 type='button'
-                className='delete-yes-button'
+                className='delete-spot-button delete-spot-yes-button'
                 onClick={handleDelete}
             >
                 Yes (Delete Spot)
             </button>
             <button
                 type='button'
-                className='delete-no-button'
+                className='delete-spot-button delete-spot-no-button'
                 onClick={handleCancel}
             >
                 No (Keep Spot)
