@@ -77,12 +77,6 @@
     margin-bottom: 10px;
 }
 
-.create-form-input-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .create-form-submit-button {
     width: 100%;
     padding: 10px;
