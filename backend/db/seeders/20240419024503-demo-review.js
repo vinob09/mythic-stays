@@ -83,35 +83,35 @@ module.exports = {
       },
       {
         userId: 3,
-        spotId: 8,
+        spotId: 6,
         review: 'From the moment I arrived, I was captivated by the stunning views of the surrounding peaks and valleys. The location itself is secluded, far away from the hustle and bustle of Tamriel. The crisp mountain air provided a serene backdrop for my stay.',
         stars: 5,
         createdAt: '2022-05-10 05:45:59.210 +00:00'
       },
       {
         userId: 2,
-        spotId: 8,
+        spotId: 6,
         review: 'Absolutely loved staying at this gorgeous home! Stunning views, beautifully decorated, and spacious rooms. Perfect for relaxation and showcasing collectibles. Worth every gold coin. Highly recommended!',
         stars: 5,
         createdAt: '2022-08-01 05:45:59.210 +00:00'
       },
       {
         userId: 1,
-        spotId: 9,
+        spotId: 7,
         review: 'Stayed above Survive Bar in Yakuza. Convenient location but extremely noisy—bar patrons kept me up all night. Room was clean but lacked amenities. Staff were friendly at least.',
         stars: 3,
         createdAt: '2022-08-01 05:45:59.210 +00:00'
       },
       {
         userId: 2,
-        spotId: 9,
+        spotId: 7,
         review: 'The friendliest staff around! Room was clean and cozy, with a lively atmosphere downstairs. A bit noisy at night but earplugs helped. Overall, a fun and memorable experience!',
         stars: 4,
         createdAt: '2021-01-01 05:45:59.210 +00:00'
       },
       {
         userId: 5,
-        spotId: 10,
+        spotId: 8,
         review: `Impressive and stronghold-worthy - great for warriors! Room was spacious and well-fortified, but a bit too dimly lit. Friendly orc staff. Overall, a solid stay. Lok'tar!`,
         stars: 4,
         createdAt: '2023-09-03 05:45:59.210 +00:00'

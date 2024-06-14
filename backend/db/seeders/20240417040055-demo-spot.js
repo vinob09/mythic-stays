@@ -72,30 +72,6 @@ module.exports = {
         price: 182.50
       },
       {
-        ownerId: 2,
-        address: '39 Hobbit Way',
-        city: 'Hobbiton',
-        state: 'The Shire',
-        country: 'Middle-earth',
-        lat: 19.3225449,
-        lng: -11.4348338,
-        name: `A Hobbit's Stay`,
-        description: 'Cozy, fireside nights in the Shire! Fireworks show included! This hobbit home is perfect for those that want to get away from any visitors or distant relations you may have. Tea and various cakes are baked fresh daily and provided to the home.',
-        price: 42.00
-      },
-      {
-        ownerId: 4,
-        address: '2 Anderson Way',
-        city: 'Silversun Strip',
-        state: 'Citadel',
-        country: 'The Widow System',
-        lat: 32.6546493,
-        lng: -10.4449397,
-        name: `Tiberius Towers Apartment`,
-        description: `This grand apartment suite is equipped with a large seating area, perfect for celebrating your victories, along with a sauna and fully functional gym should you feel the need to let off some steam. Kitchen is fully-stocked and available for your use.`,
-        price: 250
-      },
-      {
         ownerId: 5,
         address: '11 Solitude Way',
         city: 'Hjaalmarch',
@@ -130,6 +106,30 @@ module.exports = {
         name: `Grommash Hold`,
         description: `Experience the might of Grommash Hold! Embrace the spirit of a true leader with this warrior-worthy room. Currently only accepting tribe members within the Horde community.`,
         price: 23.50
+      },
+      {
+        ownerId: 2,
+        address: '39 Hobbit Way',
+        city: 'Hobbiton',
+        state: 'The Shire',
+        country: 'Middle-earth',
+        lat: 19.3225449,
+        lng: -11.4348338,
+        name: `A Hobbit's Stay`,
+        description: 'Cozy, fireside nights in the Shire! Fireworks show included! This hobbit home is perfect for those that want to get away from any visitors or distant relations you may have. Tea and various cakes are baked fresh daily and provided to the home.',
+        price: 42.00
+      },
+      {
+        ownerId: 4,
+        address: '2 Anderson Way',
+        city: 'Silversun Strip',
+        state: 'Citadel',
+        country: 'The Widow System',
+        lat: 32.6546493,
+        lng: -10.4449397,
+        name: `Tiberius Towers Apartment`,
+        description: `This grand apartment suite is equipped with a large seating area, perfect for celebrating your victories, along with a sauna and fully functional gym should you feel the need to let off some steam. Kitchen is fully-stocked and available for your use.`,
+        price: 250
       }
     ], { validate: true });
   },

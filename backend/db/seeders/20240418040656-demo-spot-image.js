@@ -32,7 +32,7 @@ module.exports = {
         preview: true
       },
       {
-        spotId: 6,
+        spotId: 9,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-1.jpg',
         preview: true
       },
@@ -62,7 +62,7 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 6,
+        spotId: 9,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-2.jpg',
         preview: false
       },
@@ -92,7 +92,7 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 6,
+        spotId: 9,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-3.jpg',
         preview: false
       },
@@ -122,7 +122,7 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 6,
+        spotId: 9,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-4.jpg',
         preview: false
       },
@@ -152,7 +152,7 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 6,
+        spotId: 9,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/hobbit-5.jpg',
         preview: false
       },
@@ -162,102 +162,102 @@ module.exports = {
         preview: false
       },
       {
-        spotId: 7,
+        spotId: 10,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-1.png',
         preview: true
       },
       {
-        spotId: 7,
+        spotId: 10,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-2.jpg',
         preview: false
       },
       {
-        spotId: 7,
+        spotId: 10,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-3.png',
         preview: false
       },
       {
-        spotId: 7,
+        spotId: 10,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-4.jpg',
         preview: false
       },
       {
-        spotId: 7,
+        spotId: 10,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-5.png',
         preview: false
       },
       {
-        spotId: 8,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-1.jpg',
         preview: true
       },
       {
-        spotId: 8,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-2.png',
         preview: false
       },
       {
-        spotId: 8,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-3.jpg',
         preview: false
       },
       {
-        spotId: 8,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-4.png',
         preview: false
       },
       {
-        spotId: 8,
+        spotId: 6,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-5.png',
         preview: false
       },
       {
-        spotId: 9,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-1.jpg',
         preview: true
       },
       {
-        spotId: 9,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-2.jpg',
         preview: false
       },
       {
-        spotId: 9,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-5.jpg',
         preview: false
       },
       {
-        spotId: 9,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-3.jpg',
         preview: false
       },
       {
-        spotId: 9,
+        spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-4.jpg',
         preview: false
       },
       {
-        spotId: 10,
+        spotId: 8,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-1.png',
         preview: true
       },
       {
-        spotId: 10,
+        spotId: 8,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-2.jpg',
         preview: false
       },
       {
-        spotId: 10,
+        spotId: 8,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-3.jpg',
         preview: false
       },
       {
-        spotId: 10,
+        spotId: 8,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-4.jpg',
         preview: false
       },
       {
-        spotId: 10,
+        spotId: 8,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-5.png',
         preview: false
       }
