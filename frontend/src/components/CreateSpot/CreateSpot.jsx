@@ -173,29 +173,27 @@ const CreateSpot = () => {
                         />
                     </label>
                     {errors.address && <p className='create-spot-error'>{errors.address}</p>}
-                    <div className='create-form-input-row'>
-                        <label className='create-form-label'> City
-                            <input
-                                type='text'
-                                value={city}
-                                className='create-form-input'
-                                placeholder='City'
-                                onChange={handleInputs(setCity, 'city')}
-                                ref={(el) => inputRefs.current.city = el}
-                            />
-                        </label>
-                        <label className='create-form-label'> State
-                            <input
-                                type='text'
-                                value={state}
-                                className='create-form-input'
-                                placeholder='State'
-                                onChange={handleInputs(setState, 'state')}
-                                ref={(el) => inputRefs.current.state = el}
-                            />
-                        </label>
-                    </div>
+                    <label className='create-form-label'> City
+                        <input
+                            type='text'
+                            value={city}
+                            className='create-form-input'
+                            placeholder='City'
+                            onChange={handleInputs(setCity, 'city')}
+                            ref={(el) => inputRefs.current.city = el}
+                        />
+                    </label>
                     {errors.city && <p className='create-spot-error'>{errors.city}</p>}
+                    <label className='create-form-label'> State
+                        <input
+                            type='text'
+                            value={state}
+                            className='create-form-input'
+                            placeholder='State'
+                            onChange={handleInputs(setState, 'state')}
+                            ref={(el) => inputRefs.current.state = el}
+                        />
+                    </label>
                     {errors.state && <p className='create-spot-error'>{errors.state}</p>}
                 </section>
                 <section className='form-section'>

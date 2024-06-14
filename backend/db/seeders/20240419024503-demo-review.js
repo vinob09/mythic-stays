@@ -98,7 +98,7 @@ module.exports = {
       {
         userId: 1,
         spotId: 7,
-        review: 'Stayed above Survive Bar in Yakuza. Convenient location but extremely noisy—bar patrons kept me up all night. Room was clean but lacked amenities. Staff were friendly at least.',
+        review: 'Stayed above Survive Bar in Ijincho. Convenient location but extremely noisy—bar patrons kept me up all night. Room was clean but lacked amenities. Staff were friendly at least.',
         stars: 3,
         createdAt: '2022-08-01 05:45:59.210 +00:00'
       },
