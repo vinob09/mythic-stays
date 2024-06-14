@@ -185,6 +185,81 @@ module.exports = {
         spotId: 7,
         url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/mass-5.png',
         preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-1.jpg',
+        preview: true
+      },
+      {
+        spotId: 8,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-2.png',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-3.jpg',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-4.png',
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/eso-5.png',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-1.jpg',
+        preview: true
+      },
+      {
+        spotId: 9,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-2.jpg',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-5.jpg',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-3.jpg',
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/yakuza-4.jpg',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-1.png',
+        preview: true
+      },
+      {
+        spotId: 10,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-2.jpg',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-3.jpg',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-4.jpg',
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://chansbucket.s3.us-east-2.amazonaws.com/Spots-Images/grommash-5.png',
+        preview: false
       }
     ], { validate: true });
   },
@@ -193,7 +268,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7] }
+      spotId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
     }, {});
   }
 };

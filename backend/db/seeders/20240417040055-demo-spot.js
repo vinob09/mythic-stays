@@ -94,6 +94,42 @@ module.exports = {
         name: `Tiberius Towers Apartment`,
         description: `This grand apartment suite is equipped with a large seating area, perfect for celebrating your victories, along with a sauna and fully functional gym should you feel the need to let off some steam. Kitchen is fully-stocked and available for your use.`,
         price: 250
+      },
+      {
+        ownerId: 5,
+        address: '11 Solitude Way',
+        city: 'Hjaalmarch',
+        state: 'Western Skyrim',
+        country: 'Tamriel',
+        lat: 26.6452693,
+        lng: -110.1549257,
+        name: `Antiquarian's Alpine Gallery`,
+        description: `Escape to Antiquarian's Alpine Gallery in the heart of Tamriel! This luxurious, spacious home offers stunning mountain views, exquisite decor, and plenty of room to showcase your collectibles. Perfect for adventurers seeking relaxation and beauty.`,
+        price: 1025.50
+      },
+      {
+        ownerId: 6,
+        address: '123 Bar District',
+        city: 'Ijincho',
+        state: 'Yokohama',
+        country: 'Japan',
+        lat: 72.6262523,
+        lng: -118.1235357,
+        name: `Survive Bar, Upper Deck Room`,
+        description: `Stay above Survive Bar for a unique experience! Cozy room in a prime location. Enjoy the vibrant nightlife below and try our infamous Legend Malt! Book your adventure now!`,
+        price: 50
+      },
+      {
+        ownerId: 7,
+        address: '1 Zug Zug Lane',
+        city: 'Orgrimmar',
+        state: 'Durotar',
+        country: 'Central Kalimdor',
+        lat: 2.6562454,
+        lng: -19.1356347,
+        name: `Grommash Hold`,
+        description: `Experience the might of Grommash Hold! Embrace the spirit of a true leader with this warrior-worthy room. Currently only accepting tribe members within the Horde community.`,
+        price: 23.50
       }
     ], { validate: true });
   },
@@ -102,7 +138,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: { [Op.in]: [1, 2, 3, 4] }
+      ownerId: { [Op.in]: [1, 2, 3, 4, 5, 6, 7] }
     }, {});
   }
 };
