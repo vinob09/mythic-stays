@@ -23,9 +23,10 @@ const SpotsDetails = () => {
 
     useEffect(() => {
         dispatch(getSpotDetails(spotId))
-            .then(() => setIsLoaded(true));
-        dispatch(fetchReviews(spotId))
-            .then(() => setIsLoaded(true));
+            .then(() => {
+                dispatch(fetchReviews(spotId))
+                    .then(() => setIsLoaded(true));
+            });
     }, [dispatch, spotId]);
 
     // checking for session user's reviews for the spot, if any
