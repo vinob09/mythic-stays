@@ -2,7 +2,6 @@
   Mythic Stays
 </h1>
 
-Welcome to Mythic Stays, a school project that is inspired by the site of you know which! This web application allows users to browse, book and review mythical accommodations, and provides owners a suite of tools in managing their lodgings. As the name implies, Mythic Stays is not a real website and is meant for learning purposes only.
 
 ## Table of Contents
 * [Introduction](#introduction)
@@ -11,14 +10,13 @@ Welcome to Mythic Stays, a school project that is inspired by the site of you kn
 * [Backend Details](#backend-details)
 
 ## Introduction
-Mythic Stays is a school project meant to mimic the functionalities of that shall not be named. The project focuses on delivering a seamless user experience with a robust design that is intuitive and responsive. This project highlights full-stack development, utilizing modern web technologies and frameworks.
+Welcome to Mythic Stays, a school project meant to mimic the functionalities of that shall not be named. The project focuses on delivering a seamless user experience with a robust design that is intuitive and responsive. This project highlights full-stack development, utilizing modern web technologies and frameworks, and allows users to browse and review mythical accomodations. As the name implies, Mythic Stays is not a real website and is meant for learning purposes only. 
 
 ## Features
 * User authentication and authorization
-* Browse and search functionalities
-* Book accommodations
+* Browse functionalities
 * Leave reviews and ratings
-* View and manage booking history
+* View and manage lodgings
 
 ## Technologies Used
 ### Frontend
