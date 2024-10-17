@@ -8,26 +8,26 @@
 ![HTML5](https://img.shields.io/badge/HTML5-orange?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-white?logo=css3&logoColor=blue)
 
-## 🧾 Table of Contents
-* [Introduction](#introduction)
-* [Features](#features)
-* [Getting Started](#getting-started)
-* [Backend Details](#backend-details)
+## 🧾Table of Contents
+* [Introduction](#📝introduction)
+* [Features](#✨features)
+* [Getting Started](#🛠️getting-started)
+* [Backend Details](#💠backend-details)
 
-## 📝 Introduction
+## 📝Introduction
 Welcome to Mythic Stays, a school project meant to mimic the functionalities of that shall not be named. The project focuses on delivering a seamless user experience with a robust design that is intuitive and responsive. This project highlights full-stack development, utilizing modern web technologies and frameworks, and allows users to browse and review mythical accomodations. The backend is built with Express.js and uses Sequelize as the ORM, while the frontend is developed using React and Redux. As the name implies, Mythic Stays is not a real website and is meant for learning purposes only.
 
 ### Live Site: *[Mythic Stays](https://mythic-stays.onrender.com/)*
 
 <img src="images/screen.png" width="50%" height="50%" alt="mythic-stays"><br><img src="images/screen-1.png" width="50%" height="50%" alt="mythic-stays-details">
 
-## ✨ Features
+## ✨Features
 * User authentication and authorization
 * Browse functionalities
 * Leave reviews and ratings
 * View and manage lodgings
 
-## 🛠️ Getting Started
+## 🛠️Getting Started
 Before you begin, ensure you have the following installed:
 
 ### Prerequisites
@@ -61,5 +61,5 @@ Before you begin, ensure you have the following installed:
 
 2. In the `frontend` directory, run `npm run dev` to start the frontend Vite development server.
 
-## 💠 Backend Details
+## 💠Backend Details
 Detailed information about the database schema and API endpoints can be found in the `backend` folder of this repository.
